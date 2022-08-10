@@ -1,0 +1,3 @@
+# Something Content
+
+[Home](/)
