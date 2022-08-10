@@ -13,8 +13,5 @@
     "@tailwindcss/typography": "^0.5.4",
     "autoprefixer": "^10.4.8",
     "nuxt": "3.0.0-rc.6"
-  },
-  "dependencies": {
-    "netlify-cms-app": "^2.15.72"
   }
 }
