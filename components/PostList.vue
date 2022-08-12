@@ -1,14 +1,11 @@
 <script setup>
-const { data } = await useAsyncData("home", () =>
-  queryContent().only(["title", "thumbnail", "description", "_path"]).find()
-);
+const props = defineProps(["list"]);
 </script>
 
 <template>
   <section class="mx-auto max-w-screen-2xl">
-    <slot />
-    <div class="grid grid-cols-2 gap-8">
-      <div class="card w-96 bg-base-100 shadow-xl" v-for="post in data" :key="post.title">
+    <div class="grid grid-cols-3 gap-8">
+      <div class="card w-96 bg-base-100 shadow-xl" v-for="post in list" :key="post.title">
         <figure><img :src="post.thumbnail" alt="Shoes" /></figure>
         <div class="card-body">
           <h2 class="card-title">

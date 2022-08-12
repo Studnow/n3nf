@@ -22,5 +22,7 @@ useHead({
   <Head>
     <Link rel="icon" type="image/png" href="/favicon.png"></Link>
   </Head>
-  <NuxtPage />
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

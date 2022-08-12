@@ -1,7 +1,5 @@
 <template>
-  <NuxtLayout>
-    <ContentDoc className="prose prose-base max-w-screen-2xl mx-auto" />
-  </NuxtLayout>
+  <ContentDoc className="prose prose-base max-w-screen-2xl mx-auto" />
 </template>
 
 <style>
