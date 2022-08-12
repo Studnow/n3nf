@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+h2 a {
+  @apply !no-underline hover:!underline !text-green-500;
+}
+
+a {
+  @apply hover:no-underline;
+}

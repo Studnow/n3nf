@@ -1,9 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 import tailwindcssTypography from '@tailwindcss/typography'
+import daisyui from 'daisyui'
+
 module.exports = {
-  content: [],
+  content: [
+    `components/**/*.{vue,js}`,
+    `layouts/**/*.vue`,
+    `pages/**/*.vue`,
+    `composables/**/*.{js,ts}`,
+    `plugins/**/*.{js,ts}`,
+    `App.{js,ts,vue}`,
+    `app.{js,ts,vue}`,
+    "content/**/*.md",
+  ],
   theme: {
     extend: {},
   },
-  plugins: [tailwindcssTypography],
+  daisyui: {
+    themes: ["emerald", "forest"]
+  },
+  plugins: [tailwindcssTypography, (daisyui)],
 };
