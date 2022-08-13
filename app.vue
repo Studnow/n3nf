@@ -24,5 +24,6 @@ useHead({
   </Head>
   <NuxtLayout>
     <NuxtPage />
+    <Modal />
   </NuxtLayout>
 </template>

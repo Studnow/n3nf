@@ -1,6 +1,6 @@
 <template>
-  <article>
-    <h3>Index.vue</h3>
+  <div class="w-full">
+    <Hero />
     <ContentList>
       <template v-slot="{ list }">
         <PostList :list="list" />
@@ -9,5 +9,5 @@
         <p>No articles found.</p>
       </template>
     </ContentList>
-  </article>
+  </div>
 </template>
