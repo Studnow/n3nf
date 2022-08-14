@@ -14,5 +14,9 @@
     "autoprefixer": "^10.4.8",
     "daisyui": "^2.22.0",
     "nuxt": "3.0.0-rc.6"
+  },
+  "dependencies": {
+    "vee-validate": "^4.6.5",
+    "yup": "^0.32.11"
   }
 }
