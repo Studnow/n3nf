@@ -9,8 +9,8 @@ export default {
     Field,
     ErrorMessage,
   },
-  props: ["modal"],
-  setup(props) {},
+  // props: ["onsub"],
+  setup() {},
   data() {
     const simpleSchema = yup.object({
       firstName: yup.string().required().min(2),
@@ -28,6 +28,7 @@ export default {
         headers: { "Content-Type": "multipart/form-data" },
         body: { message: value.message, name: value.name },
       })
+        .then(() => this.$emit('onsub'))
         .then(() => navigateTo("/thank/"))
         // .then((response) => {
         // if (response.ok) {
@@ -84,7 +85,7 @@ export default {
     <p class="text-error text-xs py-2" x-cloak>
       <ErrorMessage name="email" />
     </p>
-    <button class="btn" @click="$emit('closeModal')">Отправить</button>
+    <button class="btn">Отправить</button>
     <!--Footer-->
     <div class="flex justify-end pt-2">
       <!-- <span class="text-xs py-2 text-center text-error" x-text="formMessage">Form is not valid</span> -->
