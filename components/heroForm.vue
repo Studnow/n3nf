@@ -32,8 +32,8 @@ export default {
       console.log(value);
       fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "multipart/form-data" },
-        body: { email: value.email, name: value.name },
+        // headers: { "Content-Type": "multipart/form-data" },
+        // body: { email: value.email, name: value.name },
         // headers: { "Content-Type": "application/x-www-form-urlencoded" },
         // body: this.encode({
         //   "form-name": "heroForm",
