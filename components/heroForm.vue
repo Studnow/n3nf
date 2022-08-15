@@ -12,14 +12,14 @@ export default {
   // props: ["onsub"],
   setup() {},
   data() {
-    const form = {heroForm: ""}
+    const form = { heroForm: "" };
     const simpleSchema = yup.object({
       firstName: yup.string().required().min(2),
       email: yup.string().required().email(),
     });
     return {
       simpleSchema,
-      form
+      form,
     };
   },
   methods: {
@@ -32,13 +32,14 @@ export default {
       console.log(value);
       fetch("/", {
         method: "POST",
-        // headers: { "Content-Type": "multipart/form-data" },
-        // body: { message: value.message, name: value.name },
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: this.encode({
-      "form-name": "heroForm",
-      ...this.form,
-      })})
+        headers: { "Content-Type": "multipart/form-data" },
+        body: { email: value.email, name: value.name },
+        // headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        // body: this.encode({
+        //   "form-name": "heroForm",
+        //   ...this.form,
+        // }),
+      })
         .then(() => this.$emit("onsub"))
         .then(() => navigateTo("/thank/"))
         // .then((response) => {
