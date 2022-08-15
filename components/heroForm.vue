@@ -30,7 +30,7 @@ export default {
     },
     onSubmit(value) {
       console.log(value);
-      fetch("/", {
+      fetch("/heroForm", {
         method: "POST",
         // headers: { "Content-Type": "multipart/form-data" },
         // body: { email: value.email, firstName: value.name },
