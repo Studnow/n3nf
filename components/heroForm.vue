@@ -31,13 +31,13 @@ export default {
       console.log(value);
       fetch("/", {
         method: "POST",
-        headers: { "Content-Type": "multipart/form-data" },
-        body: { email: value.email, firstName: value.name },
-        // headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        // body: this.encode({
-        //   "form-name": "heroForm",
-        //   ...this.form,
-        // }),
+        // headers: { "Content-Type": "multipart/form-data" },
+        // body: { email: value.email, firstName: value.name },
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: this.encode({
+          "form-name": "heroForm",
+          ...this.form,
+        }),
       })
         .then(() => this.$emit("onsub"))
         .then(() => navigateTo("/thank/"))
