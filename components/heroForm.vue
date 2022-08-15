@@ -24,13 +24,13 @@ export default {
   methods: {
     encode(data) {
       console.log(data);
-      return console.log(Object.keys(data)
+      return Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-        .join("&"));
+        .join("&");
     },
     onSubmit(value) {
       console.log(value);
-      fetch("/heroForm", {
+      fetch("/", {
         method: "POST",
         // headers: { "Content-Type": "multipart/form-data" },
         // body: { email: value.email, firstName: value.name },
