@@ -38,8 +38,8 @@ export default {
         body: this.encode({
           "form-name": "heroForm",
           ...this.form,
-          name: value.firstName,
-          email: value.email,
+          // name: value.firstName,
+          // email: value.email,
         }),
       })
         .then(() => this.$emit("onsub"))
