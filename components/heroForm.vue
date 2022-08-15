@@ -37,7 +37,7 @@ export default {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: this.encode({
           "form-name": "heroForm",
-          ...this.form,
+          value,
           // name: value.firstName,
           // email: value.email,
         }),
