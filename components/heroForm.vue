@@ -23,6 +23,7 @@ export default {
   },
   methods: {
     encode(data) {
+      console.log(data);
       return Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
         .join("&");
@@ -37,6 +38,8 @@ export default {
         body: this.encode({
           "form-name": "heroForm",
           ...this.form,
+          name: value.firstName,
+          email: value.email,
         }),
       })
         .then(() => this.$emit("onsub"))
