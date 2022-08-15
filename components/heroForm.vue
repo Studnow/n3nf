@@ -24,9 +24,9 @@ export default {
   methods: {
     encode(data) {
       console.log(data);
-      return Object.keys(data)
+      return console.log(Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
-        .join("&");
+        .join("&"));
     },
     onSubmit(value) {
       console.log(value);
@@ -37,7 +37,7 @@ export default {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: this.encode({
           "form-name": "heroForm",
-          value,
+          ...value,
           // name: value.firstName,
           // email: value.email,
         }),
