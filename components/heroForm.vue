@@ -55,7 +55,7 @@ export default {
         //   throw new Error(`Something went wrong: ${response.statusText}`);
         // }
         // })
-        // .then(() => console.log("Form submitted"))
+        .then(() => console.log("Form submitted"))
         .catch((error) => alert(error));
     },
   },
