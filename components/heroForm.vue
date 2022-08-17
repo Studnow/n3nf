@@ -67,7 +67,7 @@ export default {
     id="heroForm"
     name="heroForm"
     method="POST"
-    class="flex flex-col gap-4 w-1/2 items-center my-4"
+    class="flex flex-col gap-4 w-1/2 items-center"
     novalidate="true"
     netlify
     netlify-honeypot="bot-field"
@@ -76,7 +76,7 @@ export default {
     :validation-schema="simpleSchema"
   >
     <input type="hidden" name="form-name" value="heroForm" />
-    <label for="firstName">Введите имя</label>
+    <label for="firstName"></label>
     <Field
       type="text"
       name="firstName"
@@ -87,7 +87,7 @@ export default {
     <p class="text-error text-xs py-2" x-cloak>
       <ErrorMessage name="firstName" />
     </p>
-    <label for="email">Введите email</label>
+    <label for="email"></label>
     <Field
       type="email"
       name="email"

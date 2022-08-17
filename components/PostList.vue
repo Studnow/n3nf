@@ -15,7 +15,7 @@ const props = defineProps(["list"]);
           </h2>
           <p>If a dog chews shoes whose shoes does he choose?</p>
           <div class="card-actions justify-end">
-            <button class="btn btn-accent">Buy Now</button>
+            <button class="btn btn-primary">Buy Now</button>
           </div>
         </div>
       </div>

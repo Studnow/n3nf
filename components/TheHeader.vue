@@ -1,6 +1,6 @@
 <template>
-  <header class="h-32 w-full max-w-screen-xl relative">
-    <div class="navbar bg-base-100 top-6 relative">
+  <header class="h-24 w-full sticky top-0 z-20 bg-base-100">
+    <div class="navbar py-6 max-w-screen-xl mx-auto">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -42,7 +42,8 @@
         </ul>
       </div>
       <div class="navbar-end">
-        <a class="btn btn-accent">Get started</a>
+        <!-- <a class="btn btn-accent">Get started</a> -->
+        <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Get started</label>
       </div>
     </div>
   </header>

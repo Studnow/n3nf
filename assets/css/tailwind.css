@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h2 a {
-  @apply !no-underline hover:!underline !text-accent;
+  @apply !no-underline hover:!underline !text-secondary;
 }
 
 a {
@@ -11,17 +11,17 @@ a {
 }
 
 .hero {
-  @apply flex justify-between items-center h-[70vh] md:px-4 max-w-screen-xl mx-auto;
+  @apply flex justify-evenly items-center h-[70vh] md:px-4 max-w-screen-xl mx-auto bg-base-200;
 }
 .hero-bg {
   @apply bg-base-200;
 }
 .hero_text {
   font-family: Inter, sans-serif;
-  @apply font-extrabold flex flex-col items-center justify-evenly h-4/5;
+  @apply flex flex-col gap-16 md:gap-10 items-center justify-evenly max-w-xl;
 }
 .hero_text__description {
-  @apply font-normal text-center text-xl mt-6 md:max-w-[2/3];
+  @apply font-normal text-xl md:max-w-[2/3];
 }
 .hero_left-img .hero_right-img {
   @apply w-1/3 h-screen;
