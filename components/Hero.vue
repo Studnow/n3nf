@@ -18,7 +18,7 @@
           <picture class="absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow">
             <source type="image/webp" srcset="/img/md-first-prev/slik-first-md.webp" alt="Пример сайта" />
             <img
-              src="/img/hero-img/slik-first-md.jpg"
+              src="/img/md-first-prev/slik-first-md.jpg"
               width="428"
               height="230"
               alt="Пример сайта"
