@@ -17,7 +17,7 @@ module.exports = {
     extend: {},
   },
   daisyui: {
-    themes: ["emerald", "corporate", "winter", "business"]
+    themes: ["emerald", "corporate", "winter", "business", "fantasy"]
   },
   plugins: [tailwindcssTypography, (daisyui)],
 };

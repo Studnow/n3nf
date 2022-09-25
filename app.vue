@@ -21,6 +21,7 @@ useHead({
 <template>
   <Head>
     <Link rel="icon" type="image/png" href="/favicon.png"></Link>
+    <Title>Разработка web сайтов</Title>
   </Head>
   <NuxtLayout>
     <NuxtPage />

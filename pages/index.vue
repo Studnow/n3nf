@@ -2,6 +2,7 @@
   <div class="w-full">
     <Hero />
     <!-- <HeroWithImg /> -->
+    <Carousel />
     <ContentList>
       <template v-slot="{ list }">
         <PostList :list="list" />

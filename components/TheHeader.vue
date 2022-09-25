@@ -1,5 +1,5 @@
 <template>
-  <header class="h-24 w-full sticky top-0 z-20 bg-base-100">
+  <header class="h-24 w-full sticky top-0 z-20 bg-base-200">
     <div class="navbar py-6 max-w-screen-xl mx-auto">
       <div class="navbar-start">
         <div class="dropdown">
@@ -43,7 +43,7 @@
       </div>
       <div class="navbar-end">
         <!-- <a class="btn btn-accent">Get started</a> -->
-        <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Get started</label>
+        <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Заказать</label>
       </div>
     </div>
   </header>

@@ -3,8 +3,8 @@
     <div class="hero">
       <div class="hero_left-img">
         <div class="decor">
-          <div class="w-[16rem] h-[9rem] bg-primary shadow"></div>
-          <div class="w-[9rem] h-[16rem] bg-primary shadow"></div>
+          <div class="w-[16rem] h-[9rem] bg-secondary shadow"></div>
+          <div class="w-[9rem] h-[16rem] bg-secondary shadow"></div>
           <picture class="absolute w-[20rem] h-[10rem] top-8 -left-4 shadow">
             <source type="image/webp" srcset="/img/md-first-prev/funiro-firstmed.webp" alt="Пример сайта" />
             <img
@@ -29,12 +29,12 @@
       </div>
       <div class="hero-content z-10">
         <div class="hero_text">
-          <h1 class="text-5xl font-bold text-center">Разработка web сайта</h1>
+          <h1 class="text-5xl font-bold text-center text-secondary">Привлекайте новых клиентов с помощью простого web сайта</h1>
           <p class="hero_text__description">
             Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In
             deleniti eaque aut repudiandae et a id nisi.
           </p>
-          <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">see</label>
+          <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Заказать</label>
           <!-- <button class="btn btn-accent">Get Started</button> -->
         </div>
       </div>
