@@ -22,6 +22,17 @@ useHead({
   <Head>
     <Link rel="icon" type="image/png" href="/favicon.png"></Link>
     <Title>Разработка web сайтов</Title>
+    <!-- Google tag (gtag.js) -->
+    <Script async src="https://www.googletagmanager.com/gtag/js?id=G-LH2VSYHL92"></Script>
+    <Script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-LH2VSYHL92");
+    </Script>
   </Head>
   <NuxtLayout>
     <NuxtPage />
