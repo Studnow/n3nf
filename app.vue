@@ -1,4 +1,5 @@
 <script setup>
+import Queez from './components/Queez.vue';
 useHead({
   title: "my Page",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",
