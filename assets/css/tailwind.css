@@ -32,3 +32,7 @@ a {
 .quiz-questions {
   @apply flex flex-col;
 }
+
+.card input[type="radio"]:checked + label {
+  @apply bg-primary;
+}

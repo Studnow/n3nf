@@ -109,6 +109,8 @@ const quiz = ref([
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
+const toggle = ref(false);
+
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
   question.index = currentQuestion.value;
@@ -122,15 +124,18 @@ const NextQuestion = () => {
   quizCompleted.value = true;
 };
 
-// const getAnswer = () => {
-//   if ()
-// }
-
 const result = computed(() => {
   let result = [];
   quiz.value.map((q) => result.push(q.useranswer));
   return result;
 });
+
+const checkRadio = (evt) => {
+  quiz.value[currentQuestion.value].answers.map((s) => s.text == evt.target.value ? s.selected = evt.target.checked : s.selected = false)
+}
+const checkCheckbox = (evt) => {
+  quiz.value[currentQuestion.value].answers.map((s) => s.text == evt.target.value && s.selected == !evt.target.checked ? s.selected = evt.target.checked : s.selected);
+}
 </script>
 
 <template>
@@ -139,12 +144,17 @@ const result = computed(() => {
     <section class="quiz flex flex-col justify-center py-16" v-if="!quizCompleted">
       <div class="quiz-info">
         <div class="quiz-questions">
-          <span class="score">Вопрос {{ currentQuestion }} из {{quiz.length}}</span>
+          <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
           <span class="question">{{ getCurrentQuestion.question }}</span>
         </div>
       </div>
       <div class="answers w-full py-20 flex justify-evenly items-center">
-        <div class="card w-96 bg-base-100 shadow-xl" v-for="(a, index) in getCurrentQuestion.answers" :key="index">
+        <div
+          class="card w-[20%] h-[12rem] shadow-xl"
+          :class="a.selected ? 'border border-2 border-info' : ''"
+          v-for="(a, index) in getCurrentQuestion.answers"
+          :key="index"
+        >
           <label :for="'answer-' + index">
             <div class="card-body">
               <h2 class="card-title">{{ a.text }}</h2>
@@ -156,6 +166,7 @@ const result = computed(() => {
                 :value="a.text"
                 class="radio hidden"
                 v-model="getCurrentQuestion.useranswer"
+                @change="checkRadio"
               />
               <input
                 v-else
@@ -165,6 +176,7 @@ const result = computed(() => {
                 :value="a.text"
                 class="checkbox hidden"
                 v-model="getCurrentQuestion.useranswer"
+                @change="checkCheckbox"
               />
               <!-- <div class="card-actions justify-end">
             <button class="btn btn-primary">Buy Now</button>
