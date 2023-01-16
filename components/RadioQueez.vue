@@ -3,7 +3,7 @@ import { ref, computed } from "vue";
 const questions = ref([
   {
     question: "Какой тип сайта Вам нужен?",
-    answer: 0,
+    answer: 2,
     options: ["Лендинг", "Визитка", "Многостраничный"],
     selected: null,
   },

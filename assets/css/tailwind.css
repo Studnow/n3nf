@@ -29,3 +29,6 @@ a {
 .decor {
   @apply hidden lg:block relative;
 }
+.quiz-questions {
+  @apply flex flex-col;
+}

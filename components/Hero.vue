@@ -29,11 +29,15 @@
       </div>
       <div class="hero-content z-10">
         <div class="hero_text">
-          <h1 class="text-5xl font-bold text-center text-secondary">Привлекайте новых клиентов с помощью простого web сайта</h1>
-          <p class="hero_text__description">
-            Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In
-            deleniti eaque aut repudiandae et a id nisi.
-          </p>
+          <h1 class="text-5xl font-bold text-center text-secondary">Тестируйте бизнес идеи с помощью сайта</h1>
+          <ul class="list-disc prose prose-base font-bold text-xl">
+            <li>Развёртывание в один клик</li>
+            <li>Быстрое подключение аналитики</li>
+            <li>Простое управление содержанием</li>
+            <li>Настройка рекламы</li>
+          </ul>
+          <!-- <p class="hero_text__description">
+          </p> -->
           <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Заказать</label>
           <!-- <button class="btn btn-accent">Get Started</button> -->
         </div>

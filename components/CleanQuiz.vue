@@ -1,0 +1,191 @@
+<script setup>
+import { ref, computed } from "vue";
+
+const quiz = ref([
+  {
+    question: "Какой тип сайта Вам нужен?",
+    type: "radio",
+    answers: [
+      {
+        text: "Одностраничный",
+        selected: false,
+      },
+      {
+        text: "Многостраничный",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Какая тематика сайта?",
+    type: "radio",
+    answers: [
+      {
+        text: "Продажа товаров",
+        selected: false,
+      },
+      {
+        text: "Услуги",
+        selected: false,
+      },
+      {
+        text: "Другое",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Сколько планируете вложить в разработку?",
+    type: "radio",
+    answers: [
+      {
+        text: "до 500грн",
+        selected: false,
+      },
+      {
+        text: "от 500 до 1000 грн",
+        selected: false,
+      },
+      {
+        text: "от 1000 до 2000 грн",
+        selected: false,
+      },
+      {
+        text: "2000 грн или больше",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Какой цели хотите достичь?",
+    type: "checkbox",
+    answers: [
+      {
+        text: "Привлечь внимание к продукту",
+        selected: false,
+      },
+      {
+        text: "Получить заказы",
+        selected: false,
+      },
+      {
+        text: "Протестировать нишу",
+        selected: false,
+      },
+      {
+        text: "Проанализировать потенциальных клиентов",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Какой цели хотите достичь?",
+    type: "checkbox",
+    answers: [
+      {
+        text: "Привлечь внимание к продукту",
+        selected: false,
+      },
+      {
+        text: "Получить заказы",
+        selected: false,
+      },
+      {
+        text: "Протестировать нишу",
+        selected: false,
+      },
+      {
+        text: "Проанализировать потенциальных клиентов",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+]);
+
+const quizCompleted = ref(false);
+const currentQuestion = ref(0);
+const getCurrentQuestion = computed(() => {
+  let question = quiz.value[currentQuestion.value];
+  question.index = currentQuestion.value;
+  return question;
+});
+const NextQuestion = () => {
+  if (currentQuestion.value < quiz.value.length - 1) {
+    currentQuestion.value++;
+    return;
+  }
+  quizCompleted.value = true;
+};
+
+// const getAnswer = () => {
+//   if ()
+// }
+
+const result = computed(() => {
+  let result = [];
+  quiz.value.map((q) => result.push(q.useranswer));
+  return result;
+});
+</script>
+
+<template>
+  <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
+    <h1 class="text-center">The Quiz</h1>
+    <section class="quiz flex flex-col justify-center py-16" v-if="!quizCompleted">
+      <div class="quiz-info">
+        <div class="quiz-questions">
+          <span class="score">Вопрос {{ currentQuestion }} из {{quiz.length}}</span>
+          <span class="question">{{ getCurrentQuestion.question }}</span>
+        </div>
+      </div>
+      <div class="answers w-full py-20 flex justify-evenly items-center">
+        <div class="card w-96 bg-base-100 shadow-xl" v-for="(a, index) in getCurrentQuestion.answers" :key="index">
+          <label :for="'answer-' + index">
+            <div class="card-body">
+              <h2 class="card-title">{{ a.text }}</h2>
+              <input
+                v-if="getCurrentQuestion.type == 'radio'"
+                :id="'answer-' + index"
+                :name="getCurrentQuestion.index"
+                type="radio"
+                :value="a.text"
+                class="radio hidden"
+                v-model="getCurrentQuestion.useranswer"
+              />
+              <input
+                v-else
+                :id="'answer-' + index"
+                :name="getCurrentQuestion.index"
+                type="checkbox"
+                :value="a.text"
+                class="checkbox hidden"
+                v-model="getCurrentQuestion.useranswer"
+              />
+              <!-- <div class="card-actions justify-end">
+            <button class="btn btn-primary">Buy Now</button>
+          </div> -->
+            </div>
+          </label>
+        </div>
+      </div>
+      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion">
+        {{
+          getCurrentQuestion.index == quiz.length - 1
+            ? "finish"
+            : getCurrentQuestion.selected == null
+            ? "Select an option"
+            : "Next Question"
+        }}
+      </button>
+    </section>
+    <section class="quiz flex flex-col justify-center py-16" v-else>
+      <h2>You have finished the quiz!</h2>
+      <p>Your score is {{ result }}</p>
+    </section>
+  </main>
+</template>

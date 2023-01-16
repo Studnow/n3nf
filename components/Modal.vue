@@ -1,8 +1,5 @@
 <script setup>
 const emit = defineEmits(['onsub'])
-function myModal() {
-  console.log(modalCheck._value.checked)
-}
 function closeModal() {
   modalCheck._value.checked = false;
 }
@@ -23,7 +20,7 @@ onMounted(() => {
   <!-- <label for="my-modal-6" class="btn modal-button">open modal</label> -->
 
   <!-- Put this part before </body> tag -->
-  <input type="checkbox" id="my-modal-6" class="modal-toggle" ref="modalCheck" @change="myModal" />
+  <input type="checkbox" id="my-modal-6" class="modal-toggle" ref="modalCheck" />
     <label for="my-modal-6" class="modal cursor-pointer modal-bottom sm:modal-middle">
       <label class="modal-box relative flex flex-col justify-between items-center">
         <label for="my-modal-6" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>

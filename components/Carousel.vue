@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto">
-    <h3>Выполненные работы</h3>
-    <div class="carousel carousel-center w-2/3 mx-auto">
+    <h3 class="text-center text-2xl font-medium">Выполненные работы</h3>
+    <div class="carousel carousel-center mx-auto">
       <div id="slide1" class="carousel-item relative w-full">
         <img src="/img/first-full/dbco-first.webp" class="w-full" />
         <div class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">

@@ -1,6 +1,9 @@
 <template>
   <div class="w-full">
-    <Queez />
+    <CleanQuiz />
+    <!-- <Quiz /> -->
+    <!-- <CheckboxQueez /> -->
+    <!-- <RadioQueez /> -->
     <Hero />
     <!-- <HeroWithImg /> -->
     <Carousel />

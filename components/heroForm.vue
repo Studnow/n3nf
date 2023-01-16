@@ -23,13 +23,13 @@ export default {
   },
   methods: {
     encode(data) {
-      console.log(data);
+      // console.log(data);
       return Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
         .join("&");
     },
     onSubmit(value) {
-      console.log(value);
+      // console.log(value);
       fetch("/", {
         method: "POST",
         // headers: { "Content-Type": "multipart/form-data" },
@@ -55,7 +55,7 @@ export default {
         //   throw new Error(`Something went wrong: ${response.statusText}`);
         // }
         // })
-        .then(() => console.log("Form submitted"))
+        // .then(() => console.log("Form submitted"))
         .catch((error) => alert(error));
     },
   },
