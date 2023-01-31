@@ -1,4 +1,5 @@
 <script setup>
+import { Form, Field, ErrorMessage } from "vee-validate";
 import { ref, computed } from "vue";
 
 const quiz = ref([
@@ -122,6 +123,7 @@ const NextQuestion = () => {
     return;
   }
   quizCompleted.value = true;
+  onSubmit();
 };
 
 const result = computed(() => {
@@ -131,17 +133,58 @@ const result = computed(() => {
 });
 
 const checkRadio = (evt) => {
-  quiz.value[currentQuestion.value].answers.map((s) => s.text == evt.target.value ? s.selected = evt.target.checked : s.selected = false)
-}
+  quiz.value[currentQuestion.value].answers.map((s) =>
+    s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
+  );
+};
 const checkCheckbox = (evt) => {
-  quiz.value[currentQuestion.value].answers.map((s) => s.text == evt.target.value && s.selected == !evt.target.checked ? s.selected = evt.target.checked : s.selected);
-}
+  quiz.value[currentQuestion.value].answers.map((s) =>
+    s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
+  );
+};
+const encode = (data) => {
+  // console.log(data);
+  return Object.keys(data)
+    .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+    .join("&");
+};
+const onSubmit = (value) => {
+  // console.log(value);
+  fetch("/", {
+    method: "POST",
+    // headers: { "Content-Type": "multipart/form-data" },
+    // body: { email: value.email, firstName: value.name },
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: encode({
+      "form-name": "quizForm",
+      ...value,
+      // name: value.firstName,
+      // email: value.email,
+    }),
+  })
+    // .then(() => $emit("onsub"))
+    // .then(() => navigateTo("/QuizThanks/"))
+    // .then((response) => {
+    // if (response.ok) {
+    //   myForm.reset();
+    //   // console.log("form reset");
+    //   this.formMessage = "Форма успешно отправлена";
+    //   this.resetFields();
+    // } else {
+    //   this.formMessage = "Форма заполнена с ошибками";
+    //   throw new Error(`Something went wrong: ${response.statusText}`);
+    // }
+    // })
+    .then(() => console.log("Form submitted"))
+    .catch((error) => alert(error));
+};
 </script>
 
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
-    <h1 class="text-center">The Quiz</h1>
-    <section class="quiz flex flex-col justify-center py-16" v-if="!quizCompleted">
+    <h1 class="text-center">Опрос</h1>
+    <Form class="quiz flex flex-col justify-center py-16" v-if="!quizCompleted" @submit.prevent name="quizForm">
+      <input type="hidden" name="form-name" value="quizForm" />
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
@@ -185,19 +228,32 @@ const checkCheckbox = (evt) => {
           </label>
         </div>
       </div>
-      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion">
+      <button
+        class="btn btn-accent btn-wide self-center"
+        @click.prevent="NextQuestion"
+        v-if="getCurrentQuestion.index != quiz.length - 1"
+      >
         {{
           getCurrentQuestion.index == quiz.length - 1
-            ? "finish"
-            : getCurrentQuestion.selected == null
-            ? "Select an option"
-            : "Next Question"
+            ? "Отправить"
+            : getCurrentQuestion.useranswer.length == 0
+            ? "Выберите варианты"
+            : "Дальше"
         }}
       </button>
-    </section>
+      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
+        {{
+          getCurrentQuestion.index == quiz.length - 1
+            ? "Отправить"
+            : getCurrentQuestion.useranswer.length == 0
+            ? "Выберите варианты"
+            : "Дальше"
+        }}
+      </button>
+    </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
-      <h2>You have finished the quiz!</h2>
-      <p>Your score is {{ result }}</p>
+      <h2>Вы прошли опрос!</h2>
+      <p>Ваши ответы {{ result }}</p>
     </section>
   </main>
 </template>

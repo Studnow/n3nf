@@ -1,10 +1,8 @@
 <template>
   <div class="w-full">
-    <CleanQuiz />
-    <!-- <Quiz /> -->
-    <!-- <CheckboxQueez /> -->
-    <!-- <RadioQueez /> -->
+    <!-- <PortfolioFrames /> -->
     <Hero />
+    <CleanQuiz />
     <!-- <HeroWithImg /> -->
     <Carousel />
     <ContentList>

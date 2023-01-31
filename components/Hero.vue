@@ -5,7 +5,7 @@
         <div class="decor">
           <div class="w-[16rem] h-[9rem] bg-secondary shadow"></div>
           <div class="w-[9rem] h-[16rem] bg-secondary shadow"></div>
-          <picture class="absolute w-[20rem] h-[10rem] top-8 -left-4 shadow">
+          <picture class="absolute w-[20rem] h-[10rem] top-8 -left-4 shadow hover:scale-150 hover:translate-x-5 hover:-translate-y-5 transition-transform">
             <source type="image/webp" srcset="/img/md-first-prev/funiro-firstmed.webp" alt="Пример сайта" />
             <img
               src="/img/md-first-prev/funiro-firstmed.jpg"
@@ -15,7 +15,7 @@
               class=""
             />
           </picture>
-          <picture class="absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow">
+          <picture class="absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow hover:scale-150 hover:translate-x-5 transition-transform">
             <source type="image/webp" srcset="/img/md-first-prev/slik-first-md.webp" alt="Пример сайта" />
             <img
               src="/img/md-first-prev/slik-first-md.jpg"
@@ -29,13 +29,14 @@
       </div>
       <div class="hero-content z-10">
         <div class="hero_text">
-          <h1 class="text-5xl font-bold text-center text-secondary">Тестируйте бизнес идеи с помощью сайта</h1>
-          <ul class="list-disc prose prose-base font-bold text-xl">
+          <h1 class="text-5xl font-bold text-center text-secondary">Разработка лендинга для бизнеса</h1>
+          <p class="prose prose-base text-xl">Отправка формы опроса</p>
+          <!-- <ul class="list-disc prose prose-base font-bold text-xl flex">
             <li>Развёртывание в один клик</li>
             <li>Быстрое подключение аналитики</li>
             <li>Простое управление содержанием</li>
             <li>Настройка рекламы</li>
-          </ul>
+          </ul> -->
           <!-- <p class="hero_text__description">
           </p> -->
           <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Заказать</label>
