@@ -122,8 +122,8 @@ const NextQuestion = () => {
     currentQuestion.value++;
     return;
   }
-  quizCompleted.value = true;
   onSubmit();
+  quizCompleted.value = true;
 };
 
 const result = computed(() => {
@@ -183,7 +183,13 @@ const onSubmit = (value) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <Form class="quiz flex flex-col justify-center py-16" v-if="!quizCompleted" @submit.prevent name="quizForm">
+    <Form
+      class="quiz flex flex-col justify-center py-16"
+      v-if="!quizCompleted"
+      name="quizForm"
+      netlify
+      netlify-honeypot="bot-field"
+    >
       <input type="hidden" name="form-name" value="quizForm" />
       <div class="quiz-info">
         <div class="quiz-questions">
