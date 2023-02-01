@@ -193,8 +193,6 @@ const onSubmit = (value) => {
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
     >
-      <!-- <input type="hidden" name="form-name" value="quizForm" /> -->
-      <!-- <input type="text" class="border border-2" name="quizResult" :value="result" /> -->
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
