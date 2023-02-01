@@ -178,7 +178,7 @@ const onSubmit = (value) => {
       @submit.prevent="onSubmit"
     >
     <input type="hidden" name="form-name" value="quizForm" />
-    <input type="text" :value="result" name="quizResult">
+    <input type="text" value="result" name="quizResult">
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
