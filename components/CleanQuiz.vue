@@ -149,7 +149,7 @@ const encode = (data) => {
 };
 const onSubmit = (value) => {
   // const formData = new formData(value.target);
-  console.log(value.target.name);
+  console.log(value.target);
   fetch("/", {
     method: "POST",
     // headers: { "Content-Type": "multipart/form-data" },
@@ -157,7 +157,7 @@ const onSubmit = (value) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": value.target.name,
-      res: JSON.stringify(result.value),
+      result: value.target.quizResult.value
       // ...value,
       // name: value.firstName,
       // email: value.email,
@@ -195,6 +195,7 @@ const onSubmit = (value) => {
       @submit.prevent="onSubmit"
     >
       <input type="hidden" name="form-name" value="quizForm" />
+      <input type="text" class="border border-2" name="quizResult" :value="result" />
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
@@ -260,7 +261,7 @@ const onSubmit = (value) => {
             : "Дальше"
         }}
       </button>
-      <p>{{ result }}</p>
+      <p>{{ getResult }}</p>
       <p>{{ currentQuestion }}</p>
     </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
