@@ -110,7 +110,6 @@ const quiz = ref([
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
-const toggle = ref(false);
 const result = ref([]);
 
 const getCurrentQuestion = computed(() => {
@@ -262,6 +261,7 @@ const onSubmit = (value) => {
         }}
       </button>
       <p>{{ result }}</p>
+      <p>{{ currentQuestion }}</p>
     </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
