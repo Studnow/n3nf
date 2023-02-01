@@ -148,12 +148,9 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (value) => {
-  // const formData = new formData(value.target);
   // console.log(value.target);
   fetch("/", {
     method: "POST",
-    // headers: { "Content-Type": "multipart/form-data" },
-    // body: { email: value.email, firstName: value.name },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": value.target.name,
@@ -163,19 +160,6 @@ const onSubmit = (value) => {
       // email: value.email,
     }),
   })
-    // .then(() => $emit("onsub"))
-    // .then(() => navigateTo("/QuizThanks/"))
-    // .then((response) => {
-    // if (response.ok) {
-    //   myForm.reset();
-    //   // console.log("form reset");
-    //   this.formMessage = "Форма успешно отправлена";
-    //   this.resetFields();
-    // } else {
-    //   this.formMessage = "Форма заполнена с ошибками";
-    //   throw new Error(`Something went wrong: ${response.statusText}`);
-    // }
-    // })
     .then(() => console.log("Form submitted"))
     .then(() => (quizCompleted.value = true))
     .catch((error) => alert(error));
@@ -193,6 +177,7 @@ const onSubmit = (value) => {
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
     >
+    <input type="text" :value="result" name="quizResult">
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
