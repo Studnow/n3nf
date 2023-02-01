@@ -111,6 +111,7 @@ const quiz = ref([
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
 const toggle = ref(false);
+const result = ref([]);
 
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
@@ -123,13 +124,14 @@ const NextQuestion = () => {
     return;
   }
   onSubmit();
+  nextTick();
   quizCompleted.value = true;
 };
 
-const result = computed(() => {
-  let result = [];
-  quiz.value.map((q) => result.push(q.useranswer));
-  return result;
+const getResult = computed(() => {
+  let answers = [];
+  quiz.value.map((q) => answers.push(q.useranswer));
+  return result.value = answers;
 });
 
 const checkRadio = (evt) => {
@@ -148,19 +150,20 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (value) => {
+const onSubmit = () => {
   // console.log(value);
   fetch("/", {
     method: "POST",
     // headers: { "Content-Type": "multipart/form-data" },
     // body: { email: value.email, firstName: value.name },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: encode({
-      "form-name": "quizForm",
-      ...value,
-      // name: value.firstName,
-      // email: value.email,
-    }),
+    body: JSON.stringify(result.value),
+    // encode({
+    //   "form-name": "quizForm",
+    //   ...value,
+    //   // name: value.firstName,
+    //   // email: value.email,
+    // }),
   })
     // .then(() => $emit("onsub"))
     // .then(() => navigateTo("/QuizThanks/"))
@@ -175,6 +178,7 @@ const onSubmit = (value) => {
     //   throw new Error(`Something went wrong: ${response.statusText}`);
     // }
     // })
+    .then(() => console.log(result.value))
     .then(() => console.log("Form submitted"))
     .catch((error) => alert(error));
 };
@@ -189,6 +193,7 @@ const onSubmit = (value) => {
       name="quizForm"
       netlify
       netlify-honeypot="bot-field"
+      @submit.prevent
     >
       <input type="hidden" name="form-name" value="quizForm" />
       <div class="quiz-info">
@@ -256,6 +261,7 @@ const onSubmit = (value) => {
             : "Дальше"
         }}
       </button>
+      <p>{{ JSON.stringify(result) }}</p>
     </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>

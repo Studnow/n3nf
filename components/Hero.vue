@@ -30,7 +30,7 @@
       <div class="hero-content z-10">
         <div class="hero_text">
           <h1 class="text-5xl font-bold text-center text-secondary">Разработка лендинга для бизнеса</h1>
-          <p class="prose prose-base text-xl">Отправка формы опроса</p>
+          <p class="prose prose-base text-xl">Отправка массива формы опроса</p>
           <!-- <ul class="list-disc prose prose-base font-bold text-xl flex">
             <li>Развёртывание в один клик</li>
             <li>Быстрое подключение аналитики</li>
