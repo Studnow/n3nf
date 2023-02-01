@@ -149,14 +149,15 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (value) => {
-  // console.log(value);
+  // const formData = new formData(value.target);
+  console.log(value.target.name);
   fetch("/", {
     method: "POST",
     // headers: { "Content-Type": "multipart/form-data" },
     // body: { email: value.email, firstName: value.name },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": "quizForm",
+      "form-name": value.target.name,
       result: JSON.stringify(result.value),
       // ...value,
       // name: value.firstName,
@@ -186,13 +187,13 @@ const onSubmit = (value) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <Form
+    <form
       class="quiz flex flex-col justify-center py-16"
       v-if="!quizCompleted"
       name="quizForm"
       netlify
       netlify-honeypot="bot-field"
-      @submit="onSubmit"
+      @submit.prevent="onSubmit"
     >
       <input type="hidden" name="form-name" value="quizForm" />
       <div class="quiz-info">
@@ -261,7 +262,7 @@ const onSubmit = (value) => {
         }}
       </button>
       <p>{{ JSON.stringify(result) }}</p>
-    </Form>
+    </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
