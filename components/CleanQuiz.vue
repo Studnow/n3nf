@@ -129,7 +129,7 @@ const NextQuestion = () => {
 const getResult = computed(() => {
   let answers = [];
   quiz.value.map((q) => answers.push(q.useranswer));
-  return result.value = answers;
+  return (result.value = answers);
 });
 
 const checkRadio = (evt) => {
@@ -157,7 +157,7 @@ const onSubmit = (value) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": "quizForm",
-      ...result.value,
+      result: JSON.stringify(result.value),
       // ...value,
       // name: value.firstName,
       // email: value.email,
@@ -178,7 +178,7 @@ const onSubmit = (value) => {
     // })
     .then(() => console.log(result.value))
     .then(() => console.log("Form submitted"))
-    .then(() => quizCompleted.value = true)
+    .then(() => (quizCompleted.value = true))
     .catch((error) => alert(error));
 };
 </script>
