@@ -155,13 +155,14 @@ const onSubmit = (value) => {
     // headers: { "Content-Type": "multipart/form-data" },
     // body: { email: value.email, firstName: value.name },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: encode({
-      "form-name": value.target.name,
-      result: value.target.quizResult.value
+    body: JSON.stringify(value.target.quizResult.value)
+    // encode({
+    //   "form-name": value.target.name,
+    //   result: value.target.quizResult.value
       // ...value,
       // name: value.firstName,
       // email: value.email,
-    }),
+    // }),
   })
     // .then(() => $emit("onsub"))
     // .then(() => navigateTo("/QuizThanks/"))
