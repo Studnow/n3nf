@@ -29,7 +29,7 @@ export default {
         .join("&");
     },
     onSubmit(value) {
-      // console.log(value);
+      console.log(value);
       fetch("/", {
         method: "POST",
         // headers: { "Content-Type": "multipart/form-data" },

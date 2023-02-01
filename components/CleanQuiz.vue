@@ -143,25 +143,25 @@ const checkCheckbox = (evt) => {
   );
 };
 const encode = (data) => {
-  // console.log(data);
+  console.log(data);
   return Object.keys(data)
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
 const onSubmit = (value) => {
-  console.log(value);
+  // console.log(value);
   fetch("/", {
     method: "POST",
     // headers: { "Content-Type": "multipart/form-data" },
     // body: { email: value.email, firstName: value.name },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: JSON.stringify(result.value),
-    // encode({
-    //   "form-name": "quizForm",
-    //   ...value,
-    //   // name: value.firstName,
-    //   // email: value.email,
-    // }),
+    body: encode({
+      "form-name": "quizForm",
+      ...result.value,
+      // ...value,
+      // name: value.firstName,
+      // email: value.email,
+    }),
   })
     // .then(() => $emit("onsub"))
     // .then(() => navigateTo("/QuizThanks/"))
