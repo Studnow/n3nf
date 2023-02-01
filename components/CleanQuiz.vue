@@ -123,9 +123,7 @@ const NextQuestion = () => {
     currentQuestion.value++;
     return;
   }
-  onSubmit();
-  nextTick();
-  quizCompleted.value = true;
+  // quizCompleted.value = true;
 };
 
 const getResult = computed(() => {
@@ -150,8 +148,8 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = () => {
-  // console.log(value);
+const onSubmit = (value) => {
+  console.log(value);
   fetch("/", {
     method: "POST",
     // headers: { "Content-Type": "multipart/form-data" },
@@ -180,6 +178,7 @@ const onSubmit = () => {
     // })
     .then(() => console.log(result.value))
     .then(() => console.log("Form submitted"))
+    .then(() => quizCompleted.value = true)
     .catch((error) => alert(error));
 };
 </script>
@@ -193,7 +192,7 @@ const onSubmit = () => {
       name="quizForm"
       netlify
       netlify-honeypot="bot-field"
-      @submit.prevent
+      @submit="onSubmit"
     >
       <input type="hidden" name="form-name" value="quizForm" />
       <div class="quiz-info">
