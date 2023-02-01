@@ -157,7 +157,7 @@ const onSubmit = (value) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": value.target.name,
-      result: JSON.stringify(result.value),
+      res: JSON.stringify(result.value),
       // ...value,
       // name: value.firstName,
       // email: value.email,
