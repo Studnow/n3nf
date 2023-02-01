@@ -173,6 +173,7 @@ const onSubmit = (value) => {
       class="quiz flex flex-col justify-center py-16"
       v-if="!quizCompleted"
       name="quizForm"
+      method="post"
       netlify
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
