@@ -149,20 +149,19 @@ const encode = (data) => {
 };
 const onSubmit = (value) => {
   // const formData = new formData(value.target);
-  console.log(value.target);
+  // console.log(value.target);
   fetch("/", {
     method: "POST",
     // headers: { "Content-Type": "multipart/form-data" },
     // body: { email: value.email, firstName: value.name },
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: JSON.stringify(value.target.quizResult.value)
-    // encode({
-    //   "form-name": value.target.name,
-    //   result: value.target.quizResult.value
+    body: encode({
+      "form-name": value.target.name,
+      res: JSON.stringify(result.value)
       // ...value,
       // name: value.firstName,
       // email: value.email,
-    // }),
+    }),
   })
     // .then(() => $emit("onsub"))
     // .then(() => navigateTo("/QuizThanks/"))
@@ -194,8 +193,8 @@ const onSubmit = (value) => {
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
     >
-      <input type="hidden" name="form-name" value="quizForm" />
-      <input type="text" class="border border-2" name="quizResult" :value="result" />
+      <!-- <input type="hidden" name="form-name" value="quizForm" /> -->
+      <!-- <input type="text" class="border border-2" name="quizResult" :value="result" /> -->
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
