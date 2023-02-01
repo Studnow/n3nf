@@ -261,7 +261,7 @@ const onSubmit = (value) => {
             : "Дальше"
         }}
       </button>
-      <p>{{ JSON.stringify(result) }}</p>
+      <p>{{ result }}</p>
     </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
