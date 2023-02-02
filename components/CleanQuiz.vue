@@ -154,7 +154,7 @@ const onSubmit = (evt) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      res: evt.target.quizResult.value
+      res: JSON.stringify(result.value)
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -179,7 +179,6 @@ const onSubmit = (evt) => {
       @submit.prevent="onSubmit"
     >
     <input type="hidden" name="form-name" value="quizForm" />
-    <input type="text" :value="getResult" name="quizResult">
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
