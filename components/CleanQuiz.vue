@@ -154,7 +154,7 @@ const onSubmit = (evt) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      res: JSON.stringify(result.value)
+      res: JSON.stringify(result.value),
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -178,7 +178,10 @@ const onSubmit = (evt) => {
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
     >
-    <input type="hidden" name="form-name" value="quizForm" />
+      <input type="hidden" name="form-name" value="quizForm" />
+      <p class="hidden">
+        <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
+      </p>
       <div class="quiz-info">
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
@@ -192,7 +195,7 @@ const onSubmit = (evt) => {
           v-for="(a, index) in getCurrentQuestion.answers"
           :key="index"
         >
-          <label :for="'answer-' + index">
+          <label :for="'answer-' + index" class="h-full">
             <div class="card-body">
               <h2 class="card-title">{{ a.text }}</h2>
               <input
