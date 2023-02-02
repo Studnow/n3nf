@@ -147,17 +147,17 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (value) => {
-  // console.log(value.target);
+const onSubmit = (evt) => {
+  console.log(evt.target.quizResult.value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": value.target.name,
-      ...getResult.value
-      // ...value,
-      // name: value.firstName,
-      // email: value.email,
+      "form-name": evt.target.name,
+      res: evt.target.quizResult.value
+      // ...evt,
+      // name: evt.firstName,
+      // email: evt.email,
     }),
   })
     .then(() => console.log("Form submitted"))
