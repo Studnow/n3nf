@@ -125,13 +125,14 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (value) => {
-  console.log(value);
+  let res = JSON.stringify(result.value)
+  console.log(res);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": "quizForm",
-      ...value,
+      res,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -210,24 +211,10 @@ const onSubmit = (value) => {
         @click.prevent="NextQuestion"
         v-if="getCurrentQuestion.index != quiz.length - 1"
       >
-        {{
-          getCurrentQuestion.index == quiz.length - 1
-            ? "Отправить"
-            : getCurrentQuestion.useranswer.length == 0
-            ? "Выберите варианты"
-            : "Дальше"
-        }}
+        {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
       </button>
-      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
-        {{
-          getCurrentQuestion.index == quiz.length - 1
-            ? "Отправить"
-            : getCurrentQuestion.useranswer.length == 0
-            ? "Выберите варианты"
-            : "Дальше"
-        }}
-      </button>
-      <p>{{ getResult }}</p>
+      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>"Отправить"</button>
+      <p>{{ quiz.length - 1 }}</p>
     </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
