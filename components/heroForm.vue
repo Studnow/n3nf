@@ -76,6 +76,9 @@ export default {
     :validation-schema="simpleSchema"
   >
     <input type="hidden" name="form-name" value="heroForm" />
+    <p class="hidden">
+      <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
+    </p>
     <label for="firstName"></label>
     <Field
       type="text"

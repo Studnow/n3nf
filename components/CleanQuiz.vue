@@ -83,29 +83,6 @@ const quiz = ref([
     ],
     useranswer: [],
   },
-  {
-    question: "Какой цели хотите достичь?",
-    type: "checkbox",
-    answers: [
-      {
-        text: "Привлечь внимание к продукту",
-        selected: false,
-      },
-      {
-        text: "Получить заказы",
-        selected: false,
-      },
-      {
-        text: "Протестировать нишу",
-        selected: false,
-      },
-      {
-        text: "Проанализировать потенциальных клиентов",
-        selected: false,
-      },
-    ],
-    useranswer: [],
-  },
 ]);
 
 const quizCompleted = ref(false);
@@ -147,14 +124,14 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (evt) => {
-  console.log(evt.target.quizResult.value);
+const onSubmit = (value) => {
+  console.log(value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": evt.target.name,
-      res: JSON.stringify(result.value),
+      "form-name": "quizForm",
+      ...value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -169,16 +146,19 @@ const onSubmit = (evt) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <form
-      class="quiz flex flex-col justify-center py-16"
+    <Form
+      class="quiz flex flex-col justify-center py-16 h-full"
       v-if="!quizCompleted"
       name="quizForm"
       method="post"
       netlify
       netlify-honeypot="bot-field"
-      @submit.prevent="onSubmit"
+      @submit="onSubmit"
+      v-slot="{ values }"
     >
       <input type="hidden" name="form-name" value="quizForm" />
+      <!-- <Field type="text" name="quizForm" :value="result.value" /> -->
+      <pre>{{ values }}</pre>
       <p class="hidden">
         <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
       </p>
@@ -198,20 +178,20 @@ const onSubmit = (evt) => {
           <label :for="'answer-' + index" class="h-full">
             <div class="card-body">
               <h2 class="card-title">{{ a.text }}</h2>
-              <input
+              <Field
                 v-if="getCurrentQuestion.type == 'radio'"
                 :id="'answer-' + index"
-                :name="getCurrentQuestion.index"
+                :name="getCurrentQuestion.index.toString()"
                 type="radio"
                 :value="a.text"
                 class="radio hidden"
                 v-model="getCurrentQuestion.useranswer"
                 @change="checkRadio"
               />
-              <input
+              <Field
                 v-else
                 :id="'answer-' + index"
-                :name="getCurrentQuestion.index"
+                :name="getCurrentQuestion.index.toString()"
                 type="checkbox"
                 :value="a.text"
                 class="checkbox hidden"
@@ -248,8 +228,7 @@ const onSubmit = (evt) => {
         }}
       </button>
       <p>{{ getResult }}</p>
-      <p>{{ currentQuestion }}</p>
-    </form>
+    </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
