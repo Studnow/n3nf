@@ -125,7 +125,7 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (value) => {
-  console.log(res);
+  console.log(value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
