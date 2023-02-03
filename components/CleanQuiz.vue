@@ -125,14 +125,13 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (value) => {
-  let res = JSON.stringify(result.value)
   console.log(res);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": "quizForm",
-      res,
+      ...value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
