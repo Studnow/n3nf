@@ -18,71 +18,71 @@ const quiz = ref([
     ],
     useranswer: [],
   },
-  {
-    question: "Какая тематика сайта?",
-    type: "radio",
-    answers: [
-      {
-        text: "Продажа товаров",
-        selected: false,
-      },
-      {
-        text: "Услуги",
-        selected: false,
-      },
-      {
-        text: "Другое",
-        selected: false,
-      },
-    ],
-    useranswer: [],
-  },
-  {
-    question: "Сколько планируете вложить в разработку?",
-    type: "radio",
-    answers: [
-      {
-        text: "до 500грн",
-        selected: false,
-      },
-      {
-        text: "от 500 до 1000 грн",
-        selected: false,
-      },
-      {
-        text: "от 1000 до 2000 грн",
-        selected: false,
-      },
-      {
-        text: "2000 грн или больше",
-        selected: false,
-      },
-    ],
-    useranswer: [],
-  },
-  {
-    question: "Какой цели хотите достичь?",
-    type: "checkbox",
-    answers: [
-      {
-        text: "Привлечь внимание к продукту",
-        selected: false,
-      },
-      {
-        text: "Получить заказы",
-        selected: false,
-      },
-      {
-        text: "Протестировать нишу",
-        selected: false,
-      },
-      {
-        text: "Проанализировать потенциальных клиентов",
-        selected: false,
-      },
-    ],
-    useranswer: [],
-  },
+  // {
+  //   question: "Какая тематика сайта?",
+  //   type: "radio",
+  //   answers: [
+  //     {
+  //       text: "Продажа товаров",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "Услуги",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "Другое",
+  //       selected: false,
+  //     },
+  //   ],
+  //   useranswer: [],
+  // },
+  // {
+  //   question: "Сколько планируете вложить в разработку?",
+  //   type: "radio",
+  //   answers: [
+  //     {
+  //       text: "до 500грн",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "от 500 до 1000 грн",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "от 1000 до 2000 грн",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "2000 грн или больше",
+  //       selected: false,
+  //     },
+  //   ],
+  //   useranswer: [],
+  // },
+  // {
+  //   question: "Какой цели хотите достичь?",
+  //   type: "checkbox",
+  //   answers: [
+  //     {
+  //       text: "Привлечь внимание к продукту",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "Получить заказы",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "Протестировать нишу",
+  //       selected: false,
+  //     },
+  //     {
+  //       text: "Проанализировать потенциальных клиентов",
+  //       selected: false,
+  //     },
+  //   ],
+  //   useranswer: [],
+  // },
 ]);
 
 const quizCompleted = ref(false);
@@ -96,6 +96,7 @@ const getCurrentQuestion = computed(() => {
 });
 const NextQuestion = () => {
   if (currentQuestion.value < quiz.value.length - 1) {
+    console.log(quiz.value[currentQuestion.value].useranswer);
     currentQuestion.value++;
     return;
   }
@@ -105,7 +106,7 @@ const NextQuestion = () => {
 const getResult = computed(() => {
   let answers = [];
   quiz.value.map((q) => answers.push(q.useranswer));
-  return (result.value = answers);
+  return answers.toString();
 });
 
 const checkRadio = (evt) => {
@@ -124,14 +125,14 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (value) => {
-  console.log(value);
+const onSubmit = (evt) => {
+  // console.log(getResult.value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": "quizForm",
-      ...value,
+      "form-name": evt.target.name,
+      res: getResult.value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -146,13 +147,13 @@ const onSubmit = (value) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <Form
+    <form
       class="quiz flex flex-col justify-center py-16 h-full"
       name="quizForm"
       method="post"
       netlify
       netlify-honeypot="bot-field"
-      @submit="onSubmit"
+      @submit.prevent="onSubmit"
       v-if="!quizCompleted"
     >
       <input type="hidden" name="form-name" value="quizForm" />
@@ -175,7 +176,7 @@ const onSubmit = (value) => {
           <label :for="'answer-' + index" class="h-full">
             <div class="card-body">
               <h2 class="card-title">{{ a.text }}</h2>
-              <Field
+              <input
                 v-if="getCurrentQuestion.type == 'radio'"
                 :id="'answer-' + index"
                 :name="getCurrentQuestion.index.toString()"
@@ -185,7 +186,7 @@ const onSubmit = (value) => {
                 v-model="getCurrentQuestion.useranswer"
                 @change="checkRadio"
               />
-              <Field
+              <input
                 v-else
                 :id="'answer-' + index"
                 :name="getCurrentQuestion.index.toString()"
@@ -210,7 +211,7 @@ const onSubmit = (value) => {
         {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
       </button>
       <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
-    </Form>
+    </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
