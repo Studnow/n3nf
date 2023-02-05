@@ -173,6 +173,7 @@ const onSubmit = (evt) => {
           v-for="(a, index) in getCurrentQuestion.answers"
           :key="index"
         >
+        <input type="text" :name="'test-' + index" :id="'test-' + index">
           <label :for="'answer-' + index" class="h-full">
             <div class="card-body">
               <h2 class="card-title">{{ a.text }}</h2>
