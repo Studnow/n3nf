@@ -157,6 +157,7 @@ const form = ref([]);
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
     >
+    <input type="hidden" name="form-name" value="testForm" />
       <label
         > answer
         <input type="text" name="a.selected" class="border border-accent" />
