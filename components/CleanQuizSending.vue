@@ -146,72 +146,71 @@ const onSubmit = (value) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <section v-if="!quizCompleted">
-      <Form
-        class="quiz flex flex-col justify-center py-16 h-full"
-        name="quizForm"
-        method="post"
-        netlify
-        netlify-honeypot="bot-field"
-        @submit="onSubmit"
-      >
-        <input type="hidden" name="form-name" value="quizForm" />
-        <p class="hidden">
-          <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
-        </p>
-        <div class="quiz-info">
-          <div class="quiz-questions">
-            <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
-            <span class="question">{{ getCurrentQuestion.question }}</span>
-          </div>
+    <Form
+      class="quiz flex flex-col justify-center py-16 h-full"
+      name="quizForm"
+      method="post"
+      netlify
+      netlify-honeypot="bot-field"
+      @submit="onSubmit"
+      v-if="!quizCompleted"
+    >
+      <input type="hidden" name="form-name" value="quizForm" />
+      <p class="hidden">
+        <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
+      </p>
+      <div class="quiz-info">
+        <div class="quiz-questions">
+          <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
+          <span class="question">{{ getCurrentQuestion.question }}</span>
         </div>
-        <div class="answers w-full py-20 flex justify-evenly items-center">
-          <div
-            class="card w-[20%] h-[12rem] shadow-xl"
-            :class="a.selected ? 'border border-2 border-info' : ''"
-            v-for="(a, index) in getCurrentQuestion.answers"
-            :key="index"
-          >
-            <label :for="'answer-' + index" class="h-full">
-              <div class="card-body">
-                <h2 class="card-title">{{ a.text }}</h2>
-                <Field
-                  v-if="getCurrentQuestion.type == 'radio'"
-                  :id="'answer-' + index"
-                  :name="getCurrentQuestion.index.toString()"
-                  type="radio"
-                  :value="a.text"
-                  class="radio hidden"
-                  v-model="getCurrentQuestion.useranswer"
-                  @change="checkRadio"
-                />
-                <Field
-                  v-else
-                  :id="'answer-' + index"
-                  :name="getCurrentQuestion.index.toString()"
-                  type="checkbox"
-                  :value="a.text"
-                  class="checkbox hidden"
-                  v-model="getCurrentQuestion.useranswer"
-                  @change="checkCheckbox"
-                />
-                <!-- <div class="card-actions justify-end">
+      </div>
+      <div class="answers w-full py-20 flex justify-evenly items-center">
+        <div
+          class="card w-[20%] h-[12rem] shadow-xl"
+          :class="a.selected ? 'border border-2 border-info' : ''"
+          v-for="(a, index) in getCurrentQuestion.answers"
+          :key="index"
+        >
+          <label :for="'answer-' + index" class="h-full">
+            <div class="card-body">
+              <h2 class="card-title">{{ a.text }}</h2>
+              <Field
+                v-if="getCurrentQuestion.type == 'radio'"
+                :id="'answer-' + index"
+                :name="getCurrentQuestion.index.toString()"
+                type="radio"
+                :value="a.text"
+                class="radio hidden"
+                v-model="getCurrentQuestion.useranswer"
+                @change="checkRadio"
+              />
+              <Field
+                v-else
+                :id="'answer-' + index"
+                :name="getCurrentQuestion.index.toString()"
+                type="checkbox"
+                :value="a.text"
+                class="checkbox hidden"
+                v-model="getCurrentQuestion.useranswer"
+                @change="checkCheckbox"
+              />
+              <!-- <div class="card-actions justify-end">
             <button class="btn btn-primary">Buy Now</button>
           </div> -->
-              </div>
-            </label>
-          </div>
+            </div>
+          </label>
         </div>
-        <button
-          class="btn btn-accent btn-wide self-center"
-          @click.prevent="NextQuestion"
-          v-if="getCurrentQuestion.index != quiz.length - 1"
-        >
-          {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
-        </button>
-        <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
-      </Form>
-    </section>
+      </div>
+      <button
+        class="btn btn-accent btn-wide self-center"
+        @click.prevent="NextQuestion"
+        v-if="getCurrentQuestion.index != quiz.length - 1"
+      >
+        {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
+      </button>
+      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
+    </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
