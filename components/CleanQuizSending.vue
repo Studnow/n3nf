@@ -126,13 +126,13 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
-  // console.log(getResult.value);
+  console.log(evt.target.elements[0].value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      res: getResult.value,
+      res: evt.target.elements[0].value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -142,12 +142,30 @@ const onSubmit = (evt) => {
     .then(() => (quizCompleted.value = true))
     .catch((error) => alert(error));
 };
+
+const form = ref([]);
 </script>
 
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
     <form
+      class="quiz flex flex-col items-center justify-evenly py-16 h-full"
+      name="testForm"
+      method="post"
+      netlify
+      netlify-honeypot="bot-field"
+      @submit.prevent="onSubmit"
+    >
+      <label
+        > answer
+        <input type="text" name="a.selected" class="border border-accent" />
+      </label>
+      <p>{{}}</p>
+      <button class="btn btn-accent">send</button>
+    </form>
+
+    <!-- <form
       class="quiz flex flex-col justify-center py-16 h-full"
       name="quizForm"
       method="post"
@@ -197,9 +215,9 @@ const onSubmit = (evt) => {
                 v-model="getCurrentQuestion.useranswer"
                 @change="checkCheckbox"
               />
-              <!-- <div class="card-actions justify-end">
+              <div class="card-actions justify-end">
             <button class="btn btn-primary">Buy Now</button>
-          </div> -->
+          </div>
             </div>
           </label>
         </div>
@@ -212,10 +230,10 @@ const onSubmit = (evt) => {
         {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
       </button>
       <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
-    </form>
-    <section class="quiz flex flex-col justify-center py-16" v-else>
+    </form> -->
+    <!-- <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
-    </section>
+    </section> -->
   </main>
 </template>
