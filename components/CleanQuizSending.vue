@@ -132,7 +132,7 @@ const onSubmit = (evt) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      res: result.value,
+      res: evt.target.elements[1].value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
