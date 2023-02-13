@@ -156,7 +156,7 @@ const form = { ask: "" };
       netlify
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
-      v-if="!quizCompleted"
+      v-show="!quizCompleted"
     >
       <input type="hidden" name="form-name" value="testForm" />
       <label>
@@ -171,7 +171,7 @@ const form = { ask: "" };
       <p>{{ form }}</p>
       <button class="btn btn-accent">send</button>
     </form>
-    <section class="quiz flex flex-col justify-center py-16" v-else>
+    <section class="quiz flex flex-col justify-center py-16" v-show="quizCompleted">
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
     </section>
