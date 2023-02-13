@@ -125,14 +125,16 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (value) => {
-  console.log(value);
+const onSubmit = (evt) => {
+  console.log(evt.target.elements);
+  let res = Object.values(evt.target.elements).map((val) => val.value);
+  console.log(res)
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": "testForm",
-      ...value,
+      "form-name": evt.target.name,
+      ...res
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -149,23 +151,23 @@ const form = ref([]);
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <Form
+    <form
       class="quiz flex flex-col items-center justify-evenly py-16 h-full"
       id="testForm"
       name="testForm"
       method="post"
       netlify
       netlify-honeypot="bot-field"
-      @submit="onSubmit"
+      @submit.prevent="onSubmit"
     >
       <input type="hidden" name="form-name" value="testForm" />
       <label>
         answer
-        <Field type="text" name="clean-quiz-answer" class="border border-accent" v-model="result" />
+        <input type="text" name="clean-quiz-answer" class="border border-accent" v-model="result" />
       </label>
       <p>{{ result }}</p>
       <button class="btn btn-accent">send</button>
-    </Form>
+    </form>
 
     <!-- <form
       class="quiz flex flex-col justify-center py-16 h-full"
