@@ -142,7 +142,7 @@ const onSubmit = (evt) => {
     .catch((error) => alert(error));
 };
 
-const form = {ask: ''};
+const form = { ask: "" };
 </script>
 
 <template>
@@ -156,15 +156,25 @@ const form = {ask: ''};
       netlify
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
+      v-if="!quizCompleted"
     >
       <input type="hidden" name="form-name" value="testForm" />
       <label>
         answer
-        <input type="text" name="clean-quiz-answer" class="border border-accent" @input="ev => form.ask = ev.target.value" />
+        <input
+          type="text"
+          name="clean-quiz-answer"
+          class="border border-accent"
+          @input="(ev) => (form.ask = ev.target.value)"
+        />
       </label>
       <p>{{ form }}</p>
       <button class="btn btn-accent">send</button>
     </form>
+    <section class="quiz flex flex-col justify-center py-16" v-else>
+      <h2>Вы прошли опрос!</h2>
+      <p>Ваши ответы {{ result }}</p>
+    </section>
 
     <!-- <form
       class="quiz flex flex-col justify-center py-16 h-full"
