@@ -87,7 +87,7 @@ const quiz = ref([
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
-const result = ref([]);
+const result = ref("");
 
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
@@ -132,7 +132,7 @@ const onSubmit = (evt) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      res: evt.target.elements[0].value,
+      res: result.value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -151,18 +151,19 @@ const form = ref([]);
     <h1 class="text-center">Опрос</h1>
     <form
       class="quiz flex flex-col items-center justify-evenly py-16 h-full"
+      id="testForm"
       name="testForm"
       method="post"
       netlify
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
     >
-    <input type="hidden" name="form-name" value="testForm" />
-      <label
-        > answer
-        <input type="text" name="a.selected" class="border border-accent" />
+      <input type="hidden" name="form-name" value="testForm" />
+      <label>
+        answer
+        <input type="text" name="clean-quiz-answer" class="border border-accent" v-model="result" />
       </label>
-      <p>{{}}</p>
+      <p>{{ result }}</p>
       <button class="btn btn-accent">send</button>
     </form>
 
