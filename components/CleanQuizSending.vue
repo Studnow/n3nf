@@ -87,7 +87,7 @@ const quiz = ref([
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
-const result = ref("");
+const result = ref({});
 
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
@@ -126,15 +126,12 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
-  console.log(evt.target.elements);
-  let res = Object.values(evt.target.elements).map((val) => val.value);
-  console.log(res)
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      ...res
+      ...form,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -145,7 +142,7 @@ const onSubmit = (evt) => {
     .catch((error) => alert(error));
 };
 
-const form = ref([]);
+const form = {ask: ''};
 </script>
 
 <template>
@@ -163,9 +160,9 @@ const form = ref([]);
       <input type="hidden" name="form-name" value="testForm" />
       <label>
         answer
-        <input type="text" name="clean-quiz-answer" class="border border-accent" v-model="result" />
+        <input type="text" name="clean-quiz-answer" class="border border-accent" @input="ev => form.ask = ev.target.value" />
       </label>
-      <p>{{ result }}</p>
+      <p>{{ form }}</p>
       <button class="btn btn-accent">send</button>
     </form>
 
