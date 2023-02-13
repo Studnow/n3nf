@@ -160,7 +160,7 @@ const form = {ask: ''};
       <input type="hidden" name="form-name" value="testForm" />
       <label>
         answer
-        <input type="text" name="clean-quiz-answer" class="border border-accent" @input="ev => form.ask = ev.target.value" />
+        <input type="text" name="clean-quiz-answer" class="border border-accent" @change="ev => form[ev.target.name] = ev.target.value" />
       </label>
       <p>{{ form }}</p>
       <button class="btn btn-accent">send</button>
