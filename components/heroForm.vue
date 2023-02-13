@@ -23,40 +23,25 @@ export default {
   },
   methods: {
     encode(data) {
-      // console.log(data);
       return Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
         .join("&");
     },
-    onSubmit(value) {
+    onSubmit(value, { resetForm }) {
       console.log(value);
       fetch("/", {
         method: "POST",
-        // headers: { "Content-Type": "multipart/form-data" },
-        // body: { email: value.email, firstName: value.name },
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: this.encode({
           "form-name": "heroForm",
           ...value,
-          // name: value.firstName,
-          // email: value.email,
         }),
       })
         .then(() => this.$emit("onsub"))
         .then(() => navigateTo("/thank/"))
-        // .then((response) => {
-        // if (response.ok) {
-        //   myForm.reset();
-        //   // console.log("form reset");
-        //   this.formMessage = "Форма успешно отправлена";
-        //   this.resetFields();
-        // } else {
-        //   this.formMessage = "Форма заполнена с ошибками";
-        //   throw new Error(`Something went wrong: ${response.statusText}`);
-        // }
-        // })
-        // .then(() => console.log("Form submitted"))
         .catch((error) => alert(error));
+
+      resetForm();
     },
   },
 };
@@ -105,8 +90,6 @@ export default {
     <button class="btn">Отправить</button>
     <!--Footer-->
     <div class="flex justify-end pt-2">
-      <!-- <span class="text-xs py-2 text-center text-error" x-text="formMessage">Form is not valid</span> -->
-      <!-- <span class="text-primary text-xs py-2" x-text="formMessage">Форма успешно отправлена</span> -->
     </div>
   </Form>
 </template>
