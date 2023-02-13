@@ -139,6 +139,7 @@ const onSubmit = (evt) => {
   })
     .then(() => console.log("Form submitted"))
     .then(() => (quizCompleted.value = true))
+    .then(() => navigateTo("/thank/"))
     .catch((error) => alert(error));
 };
 
@@ -156,7 +157,6 @@ const form = { ask: "" };
       netlify
       netlify-honeypot="bot-field"
       @submit.prevent="onSubmit"
-      v-show="!quizCompleted"
     >
       <input type="hidden" name="form-name" value="testForm" />
       <label>
@@ -171,10 +171,10 @@ const form = { ask: "" };
       <p>{{ form }}</p>
       <button class="btn btn-accent">send</button>
     </form>
-    <section class="quiz flex flex-col justify-center py-16" v-show="quizCompleted">
+    <!-- <section class="quiz flex flex-col justify-center py-16" v-show="quizCompleted">
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ result }}</p>
-    </section>
+    </section> -->
 
     <!-- <form
       class="quiz flex flex-col justify-center py-16 h-full"
