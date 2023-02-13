@@ -139,7 +139,6 @@ const onSubmit = (evt) => {
   })
     .then(() => console.log("Form submitted"))
     .then(() => (quizCompleted.value = true))
-    .then(() => navigateTo("/thank/"))
     .catch((error) => alert(error));
 };
 
