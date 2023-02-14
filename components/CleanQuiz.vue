@@ -107,19 +107,11 @@ const getResult = computed(() => {
   let answers = {};
   quiz.value.map(
     (q, index) =>
-      (answers[
-        index +
-          "answer-" +
-          q.answers
-            .map((a, index) => (a.selected ? index : ""))
-            .toString()
-            .split(",")
-            .join("")
-      ] = q.answers
-        .map((a, index) => (a.selected ? a.text : ""))
+      (answers["answer-" + index] = q.answers
+        .map((a) => (a.selected ? a.text : ""))
         .toString()
         .split(",")
-        .join(""))
+        .join(" "))
   );
   // answers[getCurrentQuestion.index + 'answer' + index]
   // let answers = [];
@@ -146,7 +138,6 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
-  console.log(evt);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -194,29 +185,26 @@ const onSubmit = (evt) => {
             v-for="(a, index) in getCurrentQuestion.answers"
             :key="index"
           >
-            <label :for="'answer-' + index" class="h-full">
+            <label class="h-full">
               <div class="card-body">
                 <h2 class="card-title">{{ a.text }}</h2>
                 <input
                   v-if="getCurrentQuestion.type == 'radio'"
-                  :id="'answer-' + index"
-                  :name="getCurrentQuestion.index.toString() + 'answer-' + index"
+                  :name="'answer-r' + getCurrentQuestion.index.toString()"
                   type="radio"
                   :value="a.text"
-                  class="radio hidden"
-                  v-model="getCurrentQuestion.useranswer"
+                  class="radio"
                   @change="checkRadio"
                 />
                 <input
-                  v-else
-                  :id="'answer-' + index"
-                  :name="getCurrentQuestion.index.toString() + 'answer-' + index"
+                  v-if="getCurrentQuestion.type == 'checkbox'"
+                  :name="'answer-c' + getCurrentQuestion.index.toString()"
                   type="checkbox"
                   :value="a.text"
-                  class="checkbox hidden"
-                  v-model="getCurrentQuestion.useranswer"
+                  class="checkbox"
                   @change="checkCheckbox"
                 />
+
                 <!-- <div class="card-actions justify-end">
             <button class="btn btn-primary">Buy Now</button>
           </div> -->
@@ -232,6 +220,7 @@ const onSubmit = (evt) => {
           {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
         </button>
         <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
+        <input type="text" v-for="(value, key, index) in result" :name="key" :value="value" :key="index" />
       </form>
     </section>
     <section class="quiz flex flex-col justify-center py-16" v-else>
