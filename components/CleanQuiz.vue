@@ -88,6 +88,7 @@ const quiz = ref([
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
 const result = ref([]);
+const form = ref({});
 
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
@@ -103,15 +104,35 @@ const NextQuestion = () => {
 };
 
 const getResult = computed(() => {
-  let answers = [];
-  quiz.value.map((q) => answers.push(q.useranswer));
+  let answers = {};
+  quiz.value.map(
+    (q, index) =>
+      (answers[
+        index +
+          "answer-" +
+          q.answers
+            .map((a, index) => (a.selected ? index : ""))
+            .toString()
+            .split(",")
+            .join("")
+      ] = q.answers
+        .map((a, index) => (a.selected ? a.text : ""))
+        .toString()
+        .split(",")
+        .join(""))
+  );
+  // answers[getCurrentQuestion.index + 'answer' + index]
+  // let answers = [];
+  // quiz.value.map((q) => answers.push(q.useranswer));
   return (result.value = answers);
 });
 
 const checkRadio = (evt) => {
+  // console.log(evt.target.name);
   quiz.value[currentQuestion.value].answers.map((s) =>
     s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
   );
+  // evt.target.checked ? form.value[evt.target.name] = evt.target.value : delete form.value[evt.target.name];
 };
 const checkCheckbox = (evt) => {
   quiz.value[currentQuestion.value].answers.map((s) =>
@@ -124,14 +145,14 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (value) => {
-  console.log(value);
+const onSubmit = (evt) => {
+  console.log(evt);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": "quizForm",
-      ...value,
+      ...result.value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -146,14 +167,15 @@ const onSubmit = (value) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
     <h1 class="text-center">Опрос</h1>
+    <p>{{ form }}</p>
     <section v-if="!quizCompleted">
-      <Form
+      <form
         class="quiz flex flex-col justify-center py-16 h-full"
         name="quizForm"
         method="post"
         netlify
         netlify-honeypot="bot-field"
-        @submit="onSubmit"
+        @submit.prevent="onSubmit"
       >
         <input type="hidden" name="form-name" value="quizForm" />
         <p class="hidden">
@@ -175,20 +197,20 @@ const onSubmit = (value) => {
             <label :for="'answer-' + index" class="h-full">
               <div class="card-body">
                 <h2 class="card-title">{{ a.text }}</h2>
-                <Field
+                <input
                   v-if="getCurrentQuestion.type == 'radio'"
                   :id="'answer-' + index"
-                  :name="getCurrentQuestion.index.toString()"
+                  :name="getCurrentQuestion.index.toString() + 'answer-' + index"
                   type="radio"
                   :value="a.text"
                   class="radio hidden"
                   v-model="getCurrentQuestion.useranswer"
                   @change="checkRadio"
                 />
-                <Field
+                <input
                   v-else
                   :id="'answer-' + index"
-                  :name="getCurrentQuestion.index.toString()"
+                  :name="getCurrentQuestion.index.toString() + 'answer-' + index"
                   type="checkbox"
                   :value="a.text"
                   class="checkbox hidden"
@@ -210,7 +232,7 @@ const onSubmit = (value) => {
           {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
         </button>
         <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
-      </Form>
+      </form>
     </section>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
