@@ -176,7 +176,14 @@ const getRes = (evt) => {
         <input type="text" name="clean-quiz-answer" class="border border-accent" @change="getRes" />
       </label>
       <p>{{ form }}</p>
-      <button class="btn btn-accent">send</button>
+      <button
+        class="btn btn-accent btn-wide self-center"
+        @click.prevent="NextQuestion"
+        v-if="getCurrentQuestion.index != quiz.length - 1"
+      >
+        {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
+      </button>
+      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
     </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
