@@ -171,11 +171,17 @@ const getRes = (evt) => {
           <span class="question">{{ getCurrentQuestion.question }}</span>
         </div>
       </div>
-      <label>
-        answer
-        <input type="text" name="clean-quiz-answer" class="border border-accent" @change="getRes" />
-      </label>
-      <p>{{ form }}</p>
+      <div class="answers w-full py-20 flex justify-evenly items-center">
+        <div class="card w-[20%] h-[12rem] shadow-xl">
+          <label>
+            <div class="card-body">
+              <h2 class="card-title">Answer</h2>
+              <input type="radio" name="clean-quiz-answer" class="border border-accent" @change="getRes" value="bla bla" />
+            </div>
+          </label>
+          <p>{{ form }}</p>
+        </div>
+      </div>
       <button
         class="btn btn-accent btn-wide self-center"
         @click.prevent="NextQuestion"
