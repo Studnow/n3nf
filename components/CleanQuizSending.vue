@@ -131,7 +131,7 @@ const onSubmit = (evt) => {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      ...form,
+      ...form.value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -142,12 +142,15 @@ const onSubmit = (evt) => {
     .catch((error) => alert(error));
 };
 
-const form = {};
+const form = ref({});
 const getRes = (evt) => {
-  form[evt.target.name] = evt.target.value;
+  form.value[evt.target.name] = evt.target.value;
+  quiz.value[currentQuestion.value].answers.map((s) =>
+    s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
+  );
 };
 
-const bindVal = ref({ name: "clean-quiz-answer", value: "bla bla" });
+const bindVal = ref({ name: "clean-quiz-answer", value: "Одностраничный" });
 </script>
 
 <template>
