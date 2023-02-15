@@ -162,14 +162,18 @@ const getRes = (evt) => {
       v-if="!quizCompleted"
     >
       <input type="hidden" name="form-name" value="testForm" />
+      <p class="hidden">
+        <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
+      </p>
+      <div class="quiz-info">
+        <div class="quiz-questions">
+          <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
+          <span class="question">{{ getCurrentQuestion.question }}</span>
+        </div>
+      </div>
       <label>
         answer
-        <input
-          type="text"
-          name="clean-quiz-answer"
-          class="border border-accent"
-          @change="getRes"
-        />
+        <input type="text" name="clean-quiz-answer" class="border border-accent" @change="getRes" />
       </label>
       <p>{{ form }}</p>
       <button class="btn btn-accent">send</button>
