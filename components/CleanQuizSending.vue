@@ -143,6 +143,9 @@ const onSubmit = (evt) => {
 };
 
 const form = {};
+const getRes = (evt) => {
+  form[evt.target.name] = evt.target.value;
+};
 </script>
 
 <template>
@@ -165,7 +168,7 @@ const form = {};
           type="text"
           name="clean-quiz-answer"
           class="border border-accent"
-          @change="(ev) => (form[ev.target.name] = ev.target.value)"
+          @change="getRes"
         />
       </label>
       <p>{{ form }}</p>

@@ -3,7 +3,7 @@
     <!-- <PortfolioFrames /> -->
     <Hero />
     <CleanQuizSending />
-    <CleanQuiz />
+    <!-- <CleanQuiz /> -->
     <!-- <HeroWithImg /> -->
     <Carousel />
     <ContentList>
