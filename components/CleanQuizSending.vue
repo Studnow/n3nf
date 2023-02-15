@@ -147,7 +147,7 @@ const getRes = (evt) => {
   form[evt.target.name] = evt.target.value;
 };
 
-const bindVal = ref('bla bla')
+const bindVal = ref({ name: "clean-quiz-answer", value: "bla bla" });
 </script>
 
 <template>
@@ -178,7 +178,13 @@ const bindVal = ref('bla bla')
           <label>
             <div class="card-body">
               <h2 class="card-title">Answer</h2>
-              <input type="radio" name="clean-quiz-answer" class="border border-accent" @change="getRes" :value="bindVal" />
+              <input
+                type="radio"
+                :name="bindVal.name"
+                class="border border-accent"
+                @change="getRes"
+                :value="bindVal.value"
+              />
             </div>
           </label>
           <p>{{ form }}</p>
