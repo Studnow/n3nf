@@ -18,71 +18,71 @@ const quiz = ref([
     ],
     useranswer: [],
   },
-  // {
-  //   question: "Какая тематика сайта?",
-  //   type: "radio",
-  //   answers: [
-  //     {
-  //       text: "Продажа товаров",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "Услуги",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "Другое",
-  //       selected: false,
-  //     },
-  //   ],
-  //   useranswer: [],
-  // },
-  // {
-  //   question: "Сколько планируете вложить в разработку?",
-  //   type: "radio",
-  //   answers: [
-  //     {
-  //       text: "до 500грн",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "от 500 до 1000 грн",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "от 1000 до 2000 грн",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "2000 грн или больше",
-  //       selected: false,
-  //     },
-  //   ],
-  //   useranswer: [],
-  // },
-  // {
-  //   question: "Какой цели хотите достичь?",
-  //   type: "checkbox",
-  //   answers: [
-  //     {
-  //       text: "Привлечь внимание к продукту",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "Получить заказы",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "Протестировать нишу",
-  //       selected: false,
-  //     },
-  //     {
-  //       text: "Проанализировать потенциальных клиентов",
-  //       selected: false,
-  //     },
-  //   ],
-  //   useranswer: [],
-  // },
+  {
+    question: "Какая тематика сайта?",
+    type: "radio",
+    answers: [
+      {
+        text: "Продажа товаров",
+        selected: false,
+      },
+      {
+        text: "Услуги",
+        selected: false,
+      },
+      {
+        text: "Другое",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Сколько планируете вложить в разработку?",
+    type: "radio",
+    answers: [
+      {
+        text: "до 500грн",
+        selected: false,
+      },
+      {
+        text: "от 500 до 1000 грн",
+        selected: false,
+      },
+      {
+        text: "от 1000 до 2000 грн",
+        selected: false,
+      },
+      {
+        text: "2000 грн или больше",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Какой цели хотите достичь?",
+    type: "checkbox",
+    answers: [
+      {
+        text: "Привлечь внимание к продукту",
+        selected: false,
+      },
+      {
+        text: "Получить заказы",
+        selected: false,
+      },
+      {
+        text: "Протестировать нишу",
+        selected: false,
+      },
+      {
+        text: "Проанализировать потенциальных клиентов",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
 ]);
 
 const quizCompleted = ref(false);
@@ -109,16 +109,16 @@ const getResult = computed(() => {
   return answers.toString();
 });
 
-const checkRadio = (evt) => {
-  quiz.value[currentQuestion.value].answers.map((s) =>
-    s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
-  );
-};
-const checkCheckbox = (evt) => {
-  quiz.value[currentQuestion.value].answers.map((s) =>
-    s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
-  );
-};
+// const checkRadio = (evt) => {
+//   quiz.value[currentQuestion.value].answers.map((s) =>
+//     s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
+//   );
+// };
+// const checkCheckbox = (evt) => {
+//   quiz.value[currentQuestion.value].answers.map((s) =>
+//     s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
+//   );
+// };
 const encode = (data) => {
   console.log(data);
   return Object.keys(data)
@@ -144,6 +144,7 @@ const onSubmit = (evt) => {
 
 const form = ref({});
 const getRes = (evt) => {
+  console.log(evt.target.type);
   form.value[evt.target.name] = evt.target.value;
   quiz.value[currentQuestion.value].answers.map((s) =>
     s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
@@ -181,7 +182,13 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
           <label>
             <div class="card-body">
               <h2 class="card-title">{{ a.text }}</h2>
-              <input type="radio" :name="bindVal.name" class="border border-accent" @change="getRes" :value="a.text" />
+              <input
+                :type="getCurrentQuestion.type"
+                :name="'a' + '-' + (getCurrentQuestion.index + 1)"
+                class="border border-accent"
+                @change="getRes"
+                :value="a.text"
+              />
             </div>
           </label>
           <p>{{ form }}</p>
