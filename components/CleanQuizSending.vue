@@ -155,10 +155,10 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
 </script>
 
 <template>
-  <main class="app max-w-screen-2xl mx-auto prose-lg h-screen" v-cloak>
+  <main class="app max-w-screen-2xl mx-auto prose-lg" v-cloak>
     <h1 class="text-center">Опрос</h1>
     <form
-      class="quiz flex flex-col items-center justify-evenly py-16 h-full"
+      class="quiz flex flex-col items-center justify-evenly py-16"
       id="testForm"
       name="testForm"
       method="post"
@@ -177,17 +177,17 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
           <span class="question">{{ getCurrentQuestion.question }}</span>
         </div>
       </div>
-      <div class="answers w-full py-20 flex justify-evenly items-center">
-        <div class="card w-[20%] h-[12rem] shadow-xl" v-for="(a, index) in getCurrentQuestion.answers" :key="index">
+      <div class="answers w-full py-4 flex justify-evenly items-center" v-for="(q, index) in quiz" :key="index">
+        <div class="card w-[20%] h-[12rem] shadow-xl" v-for="(an, idx) in q.answers" :key="idx">
           <label>
             <div class="card-body">
-              <h2 class="card-title">{{ a.text }}</h2>
+              <h2 class="card-title">{{ an.text }}</h2>
               <input
-                :type="getCurrentQuestion.type"
-                :name="'a' + '-' + (getCurrentQuestion.index + 1)"
+                :type="q.type"
+                :name="'a' + '-' + (index + 1)"
                 class="border border-accent"
                 @change="getRes"
-                :value="a.text"
+                :value="an.text"
               />
             </div>
           </label>
