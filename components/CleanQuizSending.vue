@@ -96,7 +96,7 @@ const getCurrentQuestion = computed(() => {
 });
 const NextQuestion = () => {
   if (currentQuestion.value < quiz.value.length - 1) {
-    console.log(quiz.value[currentQuestion.value].useranswer);
+    // console.log(quiz.value[currentQuestion.value].useranswer);
     currentQuestion.value++;
     return;
   }
@@ -126,12 +126,13 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
+  console.log(getResult)
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      ...form.value,
+      res: getResult.value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -143,16 +144,19 @@ const onSubmit = (evt) => {
 };
 
 const form = ref({});
-const getRes = (evt) => {
-  form.value[evt.target.name] = evt.target.value;
+const checkInput = (evt) => {
   if (evt.target.type == "radio") {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
     );
+    // form.value[evt.target.name] = evt.target.value;
   } else if (evt.target.type == "checkbox") {
     quiz.value[currentQuestion.value].answers.map((s) =>
-    s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected)
+      s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
+    );
+    // form.value[evt.target.name] = [...evt.target.value].join();
   }
+  // quiz.value[currentQuestion.value].answers.map((a) => (a.selected ? (form.value[evt.target.name] = [a.text]) : ""));
 };
 
 const bindVal = ref({ name: "clean-quiz-answer", value: "Одностраничный" });
@@ -182,7 +186,12 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
         </div>
       </div>
       <div class="answers w-full py-4 flex justify-evenly items-center" v-for="(q, index) in quiz" :key="index">
-        <div class="card w-[20%] h-[12rem] shadow-xl" v-for="(an, idx) in q.answers" :key="idx" v-show="currentQuestion == index">
+        <div
+          class="card w-[20%] h-[12rem] shadow-xl"
+          v-for="(an, idx) in q.answers"
+          :key="idx"
+          v-show="currentQuestion == index"
+        >
           <label>
             <div class="card-body">
               <h2 class="card-title">{{ an.text }}</h2>
@@ -190,12 +199,13 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
                 :type="q.type"
                 :name="'a' + '-' + (index + 1)"
                 class="border border-accent"
-                @change="getRes"
+                @change="checkInput"
                 :value="an.text"
+                v-model="getCurrentQuestion.useranswer"
               />
             </div>
           </label>
-          <p>{{ form }}</p>
+          <p>{{ getResult }}</p>
         </div>
       </div>
       <button
