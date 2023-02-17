@@ -1,6 +1,6 @@
 <script setup>
-import RadioQueez from "./components/RadioQueez.vue";
-import CheckboxQueez from "./components/CheckboxQueez.vue";
+import RadioQueez from "./components/examples/RadioQueez.vue";
+import CheckboxQueez from "./components/examples/CheckboxQueez.vue";
 useHead({
   title: "my Page",
   viewport: "width=device-width, initial-scale=1, maximum-scale=1",

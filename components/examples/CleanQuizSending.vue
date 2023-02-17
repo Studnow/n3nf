@@ -87,7 +87,7 @@ const quiz = ref([
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
-const result = ref({});
+// const result = ref({});
 
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
@@ -96,29 +96,11 @@ const getCurrentQuestion = computed(() => {
 });
 const NextQuestion = () => {
   if (currentQuestion.value < quiz.value.length - 1) {
-    // console.log(quiz.value[currentQuestion.value].useranswer);
     currentQuestion.value++;
     return;
   }
-  // quizCompleted.value = true;
 };
 
-const getResult = computed(() => {
-  let answers = [];
-  quiz.value.map((q) => answers.push(q.useranswer));
-  return answers.toString();
-});
-
-// const checkRadio = (evt) => {
-//   quiz.value[currentQuestion.value].answers.map((s) =>
-//     s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
-//   );
-// };
-// const checkCheckbox = (evt) => {
-//   quiz.value[currentQuestion.value].answers.map((s) =>
-//     s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
-//   );
-// };
 const encode = (data) => {
   console.log(data);
   return Object.keys(data)
@@ -126,16 +108,12 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
-  console.log(getResult);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
       ...form.value,
-      // ...evt,
-      // name: evt.firstName,
-      // email: evt.email,
     }),
   })
     .then(() => console.log("Form submitted"))
@@ -154,15 +132,11 @@ const checkInput = (evt) => {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
     );
-    // form.value[evt.target.name] = [...evt.target.value].join();
     quiz.value[currentQuestion.value].answers.map((a) =>
       a.selected ? (form.value[evt.target.name] = [...quiz.value[currentQuestion.value].useranswer].toString()) : ""
     );
   }
-  // console.log(quiz.value[currentQuestion.value])
 };
-
-const bindVal = ref({ name: "clean-quiz-answer", value: "Одностраничный" });
 </script>
 
 <template>
@@ -188,9 +162,15 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
           <span class="question">{{ getCurrentQuestion.question }}</span>
         </div>
       </div>
-      <div class="answers w-full py-4 flex justify-evenly items-center" v-for="(q, index) in quiz" :key="index">
+      <div
+        class="answers w-full flex justify-evenly items-center"
+        :class="getCurrentQuestion.index == index ? 'py-12' : ''"
+        v-for="(q, index) in quiz"
+        :key="index"
+      >
         <div
           class="card w-[20%] h-[12rem] shadow-xl"
+          :class="an.selected ? 'border border-2 border-info' : ''"
           v-for="(an, idx) in q.answers"
           :key="idx"
           v-show="currentQuestion == index"
@@ -201,14 +181,13 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
               <input
                 :type="q.type"
                 :name="'a' + '-' + (index + 1)"
-                class="border border-accent"
+                class="hidden"
                 @change="checkInput"
                 :value="an.text"
                 v-model="getCurrentQuestion.useranswer"
               />
             </div>
           </label>
-          <p>{{ form }}</p>
         </div>
       </div>
       <button
@@ -216,84 +195,13 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
         @click.prevent="NextQuestion"
         v-if="getCurrentQuestion.index != quiz.length - 1"
       >
-        {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
+        {{ getCurrentQuestion.useranswer < 1 ? "Выберите варианты" : "Дальше" }}
       </button>
       <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
     </form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
-      <p>Ваши ответы {{ result }}</p>
+      <p>Ваши ответы {{ form }}</p>
     </section>
-
-    <!-- <form
-      class="quiz flex flex-col justify-center py-16 h-full"
-      name="quizForm"
-      method="post"
-      netlify
-      netlify-honeypot="bot-field"
-      @submit.prevent="onSubmit"
-      v-if="!quizCompleted"
-    >
-      <input type="hidden" name="form-name" value="quizForm" />
-      <p class="hidden">
-        <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
-      </p>
-      <div class="quiz-info">
-        <div class="quiz-questions">
-          <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
-          <span class="question">{{ getCurrentQuestion.question }}</span>
-        </div>
-      </div>
-      <div class="answers w-full py-20 flex justify-evenly items-center">
-        <div
-          class="card w-[20%] h-[12rem] shadow-xl"
-          :class="a.selected ? 'border border-2 border-info' : ''"
-          v-for="(a, index) in getCurrentQuestion.answers"
-          :key="index"
-        >
-        <input type="text" :name="'test-' + index" :id="'test-' + index">
-          <label :for="'answer-' + index" class="h-full">
-            <div class="card-body">
-              <h2 class="card-title">{{ a.text }}</h2>
-              <input
-                v-if="getCurrentQuestion.type == 'radio'"
-                :id="'answer-' + index"
-                :name="getCurrentQuestion.index.toString()"
-                type="radio"
-                :value="a.text"
-                class="radio hidden"
-                v-model="getCurrentQuestion.useranswer"
-                @change="checkRadio"
-              />
-              <input
-                v-else
-                :id="'answer-' + index"
-                :name="getCurrentQuestion.index.toString()"
-                type="checkbox"
-                :value="a.text"
-                class="checkbox hidden"
-                v-model="getCurrentQuestion.useranswer"
-                @change="checkCheckbox"
-              />
-              <div class="card-actions justify-end">
-            <button class="btn btn-primary">Buy Now</button>
-          </div>
-            </div>
-          </label>
-        </div>
-      </div>
-      <button
-        class="btn btn-accent btn-wide self-center"
-        @click.prevent="NextQuestion"
-        v-if="getCurrentQuestion.index != quiz.length - 1"
-      >
-        {{ !getCurrentQuestion.useranswer ? "Выберите варианты" : "Дальше" }}
-      </button>
-      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>Отправить</button>
-    </form> -->
-    <!-- <section class="quiz flex flex-col justify-center py-16" v-else>
-      <h2>Вы прошли опрос!</h2>
-      <p>Ваши ответы {{ result }}</p>
-    </section> -->
   </main>
 </template>

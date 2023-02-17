@@ -22,15 +22,7 @@
       <div class="hero-content z-10">
         <div class="hero_text">
           <h1 class="text-5xl font-bold text-center text-secondary">Разработка лендинга для бизнеса</h1>
-          <p class="prose prose-base text-xl">Отправляется только имя формы, сделать чтобы отправлялись и данные</p>
-          <legend class="bg-primary prose prose-lg p-4">
-            <span class="text-primary-content">Здесь будет описано что не работает при отправке формы опроса:</span>
-            <fieldset class="text-secondary-content">
-              <ul role="list" class="marker:text-secondary-content">
-                <li>Пока всё работает</li>
-              </ul>
-            </fieldset>
-          </legend>
+          <p class="prose prose-base text-xl">Оформить опрос</p>
           <!-- <ul class="list-disc prose prose-base font-bold text-xl flex">
             <li>Развёртывание в один клик</li>
             <li>Быстрое подключение аналитики</li>

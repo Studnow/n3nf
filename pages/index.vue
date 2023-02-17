@@ -2,7 +2,7 @@
   <div class="w-full">
     <!-- <PortfolioFrames /> -->
     <Hero />
-    <CleanQuizSending />
+    <Quiz />
     <!-- <CleanQuiz /> -->
     <!-- <HeroWithImg /> -->
     <Carousel />
