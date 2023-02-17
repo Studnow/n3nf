@@ -177,17 +177,11 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
         </div>
       </div>
       <div class="answers w-full py-20 flex justify-evenly items-center">
-        <div class="card w-[20%] h-[12rem] shadow-xl">
+        <div class="card w-[20%] h-[12rem] shadow-xl" v-for="(a, index) in getCurrentQuestion.answers" :key="index">
           <label>
             <div class="card-body">
-              <h2 class="card-title">Answer</h2>
-              <input
-                type="radio"
-                :name="bindVal.name"
-                class="border border-accent"
-                @change="getRes"
-                :value="bindVal.value"
-              />
+              <h2 class="card-title">{{ a.text }}</h2>
+              <input type="radio" :name="bindVal.name" class="border border-accent" @change="getRes" :value="a.text" />
             </div>
           </label>
           <p>{{ form }}</p>

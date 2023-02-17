@@ -5,32 +5,32 @@
         <div class="decor">
           <div class="w-[16rem] h-[9rem] bg-secondary shadow"></div>
           <div class="w-[9rem] h-[16rem] bg-secondary shadow"></div>
-          <picture class="absolute w-[20rem] h-[10rem] top-8 -left-4 shadow hover:scale-150 hover:translate-x-5 hover:-translate-y-5 transition-transform">
+          <picture
+            class="absolute w-[20rem] h-[10rem] top-8 -left-4 shadow hover:scale-150 hover:translate-x-5 hover:-translate-y-5 transition-transform"
+          >
             <source type="image/webp" srcset="/img/md-first-prev/funiro-firstmed.webp" alt="Пример сайта" />
-            <img
-              src="/img/md-first-prev/funiro-firstmed.jpg"
-              width="428"
-              height="230"
-              alt="Пример сайта"
-              class=""
-            />
+            <img src="/img/md-first-prev/funiro-firstmed.jpg" width="428" height="230" alt="Пример сайта" class="" />
           </picture>
-          <picture class="absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow hover:scale-150 hover:translate-x-5 transition-transform">
+          <picture
+            class="absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow hover:scale-150 hover:translate-x-5 transition-transform"
+          >
             <source type="image/webp" srcset="/img/md-first-prev/slik-first-md.webp" alt="Пример сайта" />
-            <img
-              src="/img/md-first-prev/slik-first-md.jpg"
-              width="428"
-              height="230"
-              alt="Пример сайта"
-              class=""
-            />
+            <img src="/img/md-first-prev/slik-first-md.jpg" width="428" height="230" alt="Пример сайта" class="" />
           </picture>
         </div>
       </div>
       <div class="hero-content z-10">
         <div class="hero_text">
           <h1 class="text-5xl font-bold text-center text-secondary">Разработка лендинга для бизнеса</h1>
-          <p class="prose prose-base text-xl">Отправляется только имя формы, сделать чтобы отпавлялся и массив</p>
+          <p class="prose prose-base text-xl">Отправляется только имя формы, сделать чтобы отправлялись и данные</p>
+          <legend class="bg-primary prose prose-lg p-4">
+            <span class="text-primary-content">Здесь будет описано что не работает при отправке формы опроса:</span>
+            <fieldset class="text-secondary-content">
+              <ul role="list" class="marker:text-secondary-content">
+                <li>Пока всё работает</li>
+              </ul>
+            </fieldset>
+          </legend>
           <!-- <ul class="list-disc prose prose-base font-bold text-xl flex">
             <li>Развёртывание в один клик</li>
             <li>Быстрое подключение аналитики</li>
