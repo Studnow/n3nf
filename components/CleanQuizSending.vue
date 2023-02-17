@@ -126,13 +126,13 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
-  console.log(getResult)
+  console.log(getResult);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": evt.target.name,
-      res: getResult.value,
+      ...form.value,
       // ...evt,
       // name: evt.firstName,
       // email: evt.email,
@@ -149,14 +149,17 @@ const checkInput = (evt) => {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
     );
-    // form.value[evt.target.name] = evt.target.value;
+    form.value[evt.target.name] = evt.target.value;
   } else if (evt.target.type == "checkbox") {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
     );
     // form.value[evt.target.name] = [...evt.target.value].join();
+    quiz.value[currentQuestion.value].answers.map((a) =>
+      a.selected ? (form.value[evt.target.name] = [...quiz.value[currentQuestion.value].useranswer].toString()) : ""
+    );
   }
-  // quiz.value[currentQuestion.value].answers.map((a) => (a.selected ? (form.value[evt.target.name] = [a.text]) : ""));
+  // console.log(quiz.value[currentQuestion.value])
 };
 
 const bindVal = ref({ name: "clean-quiz-answer", value: "Одностраничный" });
@@ -205,7 +208,7 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
               />
             </div>
           </label>
-          <p>{{ getResult }}</p>
+          <p>{{ form }}</p>
         </div>
       </div>
       <button
