@@ -144,11 +144,15 @@ const onSubmit = (evt) => {
 
 const form = ref({});
 const getRes = (evt) => {
-  console.log(evt.target.type);
   form.value[evt.target.name] = evt.target.value;
-  quiz.value[currentQuestion.value].answers.map((s) =>
-    s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
-  );
+  if (evt.target.type == "radio") {
+    quiz.value[currentQuestion.value].answers.map((s) =>
+      s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
+    );
+  } else if (evt.target.type == "checkbox") {
+    quiz.value[currentQuestion.value].answers.map((s) =>
+    s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected)
+  }
 };
 
 const bindVal = ref({ name: "clean-quiz-answer", value: "Одностраничный" });
@@ -178,7 +182,7 @@ const bindVal = ref({ name: "clean-quiz-answer", value: "Одностранич�
         </div>
       </div>
       <div class="answers w-full py-4 flex justify-evenly items-center" v-for="(q, index) in quiz" :key="index">
-        <div class="card w-[20%] h-[12rem] shadow-xl" v-for="(an, idx) in q.answers" :key="idx">
+        <div class="card w-[20%] h-[12rem] shadow-xl" v-for="(an, idx) in q.answers" :key="idx" v-show="currentQuestion == index">
           <label>
             <div class="card-body">
               <h2 class="card-title">{{ an.text }}</h2>
