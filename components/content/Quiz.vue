@@ -1,11 +1,12 @@
 <script setup>
-import { Form, Field, ErrorMessage } from "vee-validate";
+import { Form, Field, ErrorMessage, useField } from "vee-validate";
 import { ref, computed } from "vue";
 
 const quiz = ref([
   {
     question: "Какой тип сайта Вам нужен?",
     type: "radio",
+    name: "q-1",
     answers: [
       {
         text: "Одностраничный",
@@ -21,6 +22,7 @@ const quiz = ref([
   {
     question: "Какая тематика сайта?",
     type: "radio",
+    name: "q-2",
     answers: [
       {
         text: "Продажа товаров",
@@ -40,6 +42,7 @@ const quiz = ref([
   {
     question: "Сколько планируете вложить в разработку?",
     type: "radio",
+    name: "q-3",
     answers: [
       {
         text: "до 500грн",
@@ -63,6 +66,7 @@ const quiz = ref([
   {
     question: "Какой цели хотите достичь?",
     type: "checkbox",
+    name: "q-4",
     answers: [
       {
         text: "Привлечь внимание к продукту",
@@ -86,6 +90,7 @@ const quiz = ref([
   {
     question: "Как с Вами связаться?",
     type: ["text", "email"],
+    name: "q-5",
     answers: [{}],
     useranswer: [],
   },
@@ -144,6 +149,12 @@ const checkInput = (evt) => {
     );
   }
 };
+
+const { checked } = useField("a-1", undefined, {
+  type: getCurrentQuestion.value.type,
+  checkedValue: true,
+  uncheckedValue: false,
+});
 </script>
 
 <template>
@@ -178,24 +189,18 @@ const checkInput = (evt) => {
       >
         <div
           class="card w-[20%] h-[12rem] shadow-xl"
-          :class="an.selected ? 'border border-2 border-info' : ''"
+          :class="checked ? 'border border-2 border-info' : ''"
           v-for="(an, idx) in q.answers"
           :key="idx"
           v-show="currentQuestion == index"
         >
-          <label class="h-full" v-show="!Array.isArray(q.type)">
+          <label class="h-full" v-if="!Array.isArray(q.type)">
             <div class="card-body">
               <h2 class="card-title">{{ an.text }}</h2>
-              <Field
-                :type="q.type"
-                :name="'a' + '-' + (index + 1)"
-                class="hidden"
-                @change="checkInput"
-                :value="an.text"
-              />
+              <Field :type="q.type" :name="'a' + '-' + (index + 1)" class="" :value="an.text" />
             </div>
           </label>
-          <label class="h-full" v-show="Array.isArray(q.type)">
+          <label class="h-full" v-else>
             <div class="card-body">
               <!-- <h2 class="card-title">{{ an.text }}</h2> -->
               <Field
@@ -208,8 +213,9 @@ const checkInput = (evt) => {
             </div>
           </label>
         </div>
-          <p>{{ values }}</p>
       </div>
+      <p>{{ values }}</p>
+      <p>{{ checked }}</p>
       <button
         class="btn btn-accent btn-wide self-center"
         @click.prevent="NextQuestion"
