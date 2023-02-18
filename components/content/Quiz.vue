@@ -83,6 +83,12 @@ const quiz = ref([
     ],
     useranswer: [],
   },
+  {
+    question: "Как с Вами связаться?",
+    type: ["text", "email"],
+    answers: [{}],
+    useranswer: [],
+  },
 ]);
 
 const quizCompleted = ref(false);
@@ -108,12 +114,13 @@ const encode = (data) => {
     .join("&");
 };
 const onSubmit = (evt) => {
+  console.log(evt);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": evt.target.name,
-      ...form.value,
+      "form-name": "testForm",
+      ...evt,
     }),
   })
     .then(() => console.log("Form submitted"))
@@ -142,15 +149,16 @@ const checkInput = (evt) => {
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg" v-cloak>
     <h1 class="text-center">Опрос</h1>
-    <form
+    <Form
       class="quiz flex flex-col items-center justify-evenly py-16"
       id="testForm"
       name="testForm"
       method="post"
       netlify
       netlify-honeypot="bot-field"
-      @submit.prevent="onSubmit"
+      @submit="onSubmit"
       v-if="!quizCompleted"
+      v-slot="{ values }"
     >
       <input type="hidden" name="form-name" value="testForm" />
       <p class="hidden">
@@ -175,20 +183,32 @@ const checkInput = (evt) => {
           :key="idx"
           v-show="currentQuestion == index"
         >
-          <label class="h-full">
+          <label class="h-full" v-show="!Array.isArray(q.type)">
             <div class="card-body">
               <h2 class="card-title">{{ an.text }}</h2>
-              <input
+              <Field
                 :type="q.type"
                 :name="'a' + '-' + (index + 1)"
                 class="hidden"
                 @change="checkInput"
                 :value="an.text"
-                v-model="getCurrentQuestion.useranswer"
+              />
+            </div>
+          </label>
+          <label class="h-full" v-show="Array.isArray(q.type)">
+            <div class="card-body">
+              <!-- <h2 class="card-title">{{ an.text }}</h2> -->
+              <Field
+                :type="f"
+                :name="f + '-' + (i + 1)"
+                class="input input-bordered input-secondary w-full max-w-xs"
+                v-for="(f, i) in q.type"
+                :key="i"
               />
             </div>
           </label>
         </div>
+          <p>{{ values }}</p>
       </div>
       <button
         class="btn btn-accent btn-wide self-center"
@@ -198,9 +218,9 @@ const checkInput = (evt) => {
         {{ getCurrentQuestion.useranswer < 1 ? "Выберите варианты" : "Дальше" }}
       </button>
       <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
-        {{ getCurrentQuestion.useranswer < 1 ? "Выберите варианты" : "Отправить" }}
+        {{ "Отправить" }}
       </button>
-    </form>
+    </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
       <p>Ваши ответы {{ form }}</p>

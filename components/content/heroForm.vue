@@ -70,7 +70,7 @@ export default {
       name="firstName"
       id="name"
       placeholder="Введите Ваше имя"
-      class="border border-primary rounded-md px-2 py-1"
+      class="input input-bordered input-secondary w-full max-w-xs"
     />
     <p class="text-error text-xs py-2" x-cloak>
       <ErrorMessage name="firstName" />
@@ -81,13 +81,13 @@ export default {
       name="email"
       id="mail"
       placeholder="Введите ваш email"
-      class="border border-primary rounded-md px-2 py-1"
+      class="input input-bordered input-secondary w-full max-w-xs"
       aria-label="Email"
     />
     <p class="text-error text-xs py-2" x-cloak>
       <ErrorMessage name="email" />
     </p>
-    <button class="btn">Отправить</button>
+    <button class="btn btn-primary">Отправить</button>
     <!--Footer-->
     <div class="flex justify-end pt-2">
     </div>
