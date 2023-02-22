@@ -6,7 +6,6 @@ const quiz = ref([
   {
     question: "Какой тип сайта Вам нужен?",
     type: "radio",
-    name: "q-1",
     answers: [
       {
         text: "Одностраничный",
@@ -22,7 +21,6 @@ const quiz = ref([
   {
     question: "Какая тематика сайта?",
     type: "radio",
-    name: "q-2",
     answers: [
       {
         text: "Продажа товаров",
@@ -42,7 +40,6 @@ const quiz = ref([
   {
     question: "Сколько планируете вложить в разработку?",
     type: "radio",
-    name: "q-3",
     answers: [
       {
         text: "до 500грн",
@@ -66,7 +63,6 @@ const quiz = ref([
   {
     question: "Какой цели хотите достичь?",
     type: "checkbox",
-    name: "q-4",
     answers: [
       {
         text: "Привлечь внимание к продукту",
@@ -90,7 +86,6 @@ const quiz = ref([
   {
     question: "Как с Вами связаться?",
     type: ["text", "email"],
-    name: "q-5",
     answers: [{}],
     useranswer: [],
   },
@@ -118,14 +113,14 @@ const encode = (data) => {
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
-const onSubmit = (evt) => {
-  console.log(evt);
+const onSubmit = (value) => {
+  console.log(value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
       "form-name": "testForm",
-      ...evt,
+      ...value,
     }),
   })
     .then(() => console.log("Form submitted"))
@@ -133,28 +128,24 @@ const onSubmit = (evt) => {
     .catch((error) => alert(error));
 };
 
-const form = ref({});
+// const form = ref({});
 const checkInput = (evt) => {
   if (evt.target.type == "radio") {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value ? (s.selected = evt.target.checked) : (s.selected = false)
     );
-    form.value[evt.target.name] = evt.target.value;
+    // form.value[evt.target.name] = evt.target.value;
   } else if (evt.target.type == "checkbox") {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
     );
-    quiz.value[currentQuestion.value].answers.map((a) =>
-      a.selected ? (form.value[evt.target.name] = [...quiz.value[currentQuestion.value].useranswer].toString()) : ""
-    );
+    // quiz.value[currentQuestion.value].answers.map((a) =>
+    //   a.selected ? (form.value[evt.target.name] = [...quiz.value[currentQuestion.value].useranswer].toString()) : ""
+    // );
   }
 };
-
-const { checked } = useField("a-1", undefined, {
-  type: getCurrentQuestion.value.type,
-  checkedValue: true,
-  uncheckedValue: false,
-});
+const agree = ref(false);
+const { checked } = useField("field", undefined, { type: "radio" });
 </script>
 
 <template>
@@ -169,7 +160,6 @@ const { checked } = useField("a-1", undefined, {
       netlify-honeypot="bot-field"
       @submit="onSubmit"
       v-if="!quizCompleted"
-      v-slot="{ values }"
     >
       <input type="hidden" name="form-name" value="testForm" />
       <p class="hidden">
@@ -189,7 +179,7 @@ const { checked } = useField("a-1", undefined, {
       >
         <div
           class="card w-[20%] h-[12rem] shadow-xl"
-          :class="checked ? 'border border-2 border-info' : ''"
+          :class="an.selected ? 'border border-2 border-info' : ''"
           v-for="(an, idx) in q.answers"
           :key="idx"
           v-show="currentQuestion == index"
@@ -197,7 +187,7 @@ const { checked } = useField("a-1", undefined, {
           <label class="h-full" v-if="!Array.isArray(q.type)">
             <div class="card-body">
               <h2 class="card-title">{{ an.text }}</h2>
-              <Field :type="q.type" :name="'a' + '-' + (index + 1)" class="" :value="an.text" />
+              <Field :type="q.type" :name="'a' + '-' + (index + 1)" class="" :value="an.text" @change="checkInput" />
             </div>
           </label>
           <label class="h-full" v-else>
@@ -214,14 +204,12 @@ const { checked } = useField("a-1", undefined, {
           </label>
         </div>
       </div>
-      <p>{{ values }}</p>
-      <p>{{ checked }}</p>
       <button
         class="btn btn-accent btn-wide self-center"
         @click.prevent="NextQuestion"
         v-if="getCurrentQuestion.index != quiz.length - 1"
       >
-        {{ getCurrentQuestion.useranswer < 1 ? "Выберите варианты" : "Дальше" }}
+        {{ getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? "Дальше" : "Выберите варианты" }}
       </button>
       <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
         {{ "Отправить" }}
@@ -229,7 +217,7 @@ const { checked } = useField("a-1", undefined, {
     </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
-      <p>Ваши ответы {{ form }}</p>
+      <!-- <p>Ваши ответы {{ form }}</p> -->
     </section>
   </main>
 </template>
