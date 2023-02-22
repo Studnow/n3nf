@@ -1,5 +1,6 @@
 <script setup>
 import { Form, Field, ErrorMessage, useField } from "vee-validate";
+import * as yup from "yup";
 import { ref, computed } from "vue";
 
 const quiz = ref([
@@ -86,6 +87,8 @@ const quiz = ref([
   {
     question: "Как с Вами связаться?",
     type: ["text", "email"],
+    validateName: yup.string().required(),
+    validateEmail: yup.string().required().email(),
     answers: [{}],
     useranswer: [],
   },
@@ -144,8 +147,7 @@ const checkInput = (evt) => {
     // );
   }
 };
-const agree = ref(false);
-const { checked } = useField("field", undefined, { type: "radio" });
+const schema = yup.object();
 </script>
 
 <template>
@@ -169,6 +171,9 @@ const { checked } = useField("field", undefined, { type: "radio" });
         <div class="quiz-questions">
           <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
           <span class="question">{{ getCurrentQuestion.question }}</span>
+          <span class="question">{{
+            getCurrentQuestion.type == "radio" ? "Выберите один из вариантов" : "Выберите несколько вариантов"
+          }}</span>
         </div>
       </div>
       <div
@@ -190,26 +195,35 @@ const { checked } = useField("field", undefined, { type: "radio" });
               <Field :type="q.type" :name="'a' + '-' + (index + 1)" class="" :value="an.text" @change="checkInput" />
             </div>
           </label>
-          <label class="h-full" v-else>
-            <div class="card-body">
+          <div class="card-body" v-else>
+            <label class="h-full" v-for="(f, i) in q.type" :key="i">
               <!-- <h2 class="card-title">{{ an.text }}</h2> -->
               <Field
                 :type="f"
-                :name="f + '-' + (i + 1)"
+                :name="'user-' + f"
                 class="input input-bordered input-secondary w-full max-w-xs"
-                v-for="(f, i) in q.type"
-                :key="i"
+                :rules="f == 'text' ? q.validateName : q.validateEmail"
               />
-            </div>
-          </label>
+              <ErrorMessage :name="'user-' + f" />
+            </label>
+          </div>
         </div>
       </div>
       <button
         class="btn btn-accent btn-wide self-center"
         @click.prevent="NextQuestion"
-        v-if="getCurrentQuestion.index != quiz.length - 1"
+        v-if="getCurrentQuestion.index != quiz.length - 1 && getCurrentQuestion.type == 'radio'"
+        :disabled="getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? false : true"
       >
-        {{ getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? "Дальше" : "Выберите варианты" }}
+        {{ getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? "Дальше" : "Выбрать один" }}
+      </button>
+      <button
+        class="btn btn-accent btn-wide self-center"
+        @click.prevent="NextQuestion"
+        v-else-if="getCurrentQuestion.index != quiz.length - 1 && getCurrentQuestion.type == 'checkbox'"
+        :disabled="getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? false : true"
+      >
+        {{ getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? "Дальше" : "Выбрать несколько" }}
       </button>
       <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
         {{ "Отправить" }}
