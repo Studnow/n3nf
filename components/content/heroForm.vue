@@ -1,7 +1,6 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
-import { localize } from "@vee-validate/i18n";
 import { ref, onMounted } from "vue";
 
 export default {
