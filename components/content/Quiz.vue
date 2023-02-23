@@ -212,7 +212,7 @@ const checkInput = (evt) => {
                 />
                 <ErrorMessage
                   :name="'user-' + f"
-                  class="text-error tooltip tooltip-bottom tooltip-error"
+                  class="text-error tooltip tooltip-bottom tooltip-error max-w-xs"
                   :data-tip="f == 'email' ? 'Пример: example@mail.com' : '2 буквы или больше'"
                 />
                   <!-- :class="f == 'email' ? 'tooltip tooltip-bottom tooltip-error' : ''" -->
