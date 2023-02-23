@@ -87,8 +87,8 @@ const quiz = ref([
   {
     question: "Как с Вами связаться?",
     type: ["text", "email"],
-    validateName: yup.string().required(),
-    validateEmail: yup.string().required().email(),
+    validateName: yup.string().required("Введите имя").min(2, "Минимум 2 буквы"),
+    validateEmail: yup.string().required("Введите адрес").email("Введите корректный адрес"),
     answers: [{}],
     useranswer: [],
   },
@@ -147,7 +147,6 @@ const checkInput = (evt) => {
     // );
   }
 };
-const schema = yup.object();
 </script>
 
 <template>
@@ -183,7 +182,7 @@ const schema = yup.object();
         :key="index"
       >
         <div
-          class="card w-[20%] h-[12rem] shadow-xl"
+          class="card min-w-[20%] max-w-[25%] shadow-xl"
           :class="an.selected ? 'border border-2 border-info' : ''"
           v-for="(an, idx) in q.answers"
           :key="idx"
@@ -192,19 +191,32 @@ const schema = yup.object();
           <label class="h-full" v-if="!Array.isArray(q.type)">
             <div class="card-body">
               <h2 class="card-title">{{ an.text }}</h2>
-              <Field :type="q.type" :name="'a' + '-' + (index + 1)" class="" :value="an.text" @change="checkInput" />
+              <Field
+                :type="q.type"
+                :name="'a' + '-' + (index + 1)"
+                class="hidden"
+                :value="an.text"
+                @change="checkInput"
+              />
             </div>
           </label>
-          <div class="card-body" v-else>
-            <label class="h-full" v-for="(f, i) in q.type" :key="i">
-              <!-- <h2 class="card-title">{{ an.text }}</h2> -->
-              <Field
-                :type="f"
-                :name="'user-' + f"
-                class="input input-bordered input-secondary w-full max-w-xs"
-                :rules="f == 'text' ? q.validateName : q.validateEmail"
-              />
-              <ErrorMessage :name="'user-' + f" />
+          <div class="card-body gap-8" v-else>
+            <label class="h-full flex flex-col" v-for="(f, i) in q.type" :key="i">
+              <div class="msg">
+                <span class="card-title">{{ f == "text" ? "Имя" : "Email" }}</span>
+                <Field
+                  :type="f"
+                  :name="'user-' + f"
+                  class="input input-bordered input-secondary w-full max-w-xs"
+                  :rules="f == 'text' ? q.validateName : q.validateEmail"
+                />
+                <ErrorMessage
+                  :name="'user-' + f"
+                  class="text-error tooltip tooltip-bottom tooltip-error"
+                  :data-tip="f == 'email' ? 'Пример: example@mail.com' : '2 буквы или больше'"
+                />
+                  <!-- :class="f == 'email' ? 'tooltip tooltip-bottom tooltip-error' : ''" -->
+              </div>
             </label>
           </div>
         </div>

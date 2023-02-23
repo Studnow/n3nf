@@ -1,6 +1,7 @@
 <script>
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
+import { localize } from "@vee-validate/i18n";
 import { ref, onMounted } from "vue";
 
 export default {
@@ -12,9 +13,9 @@ export default {
   // props: ["onsub"],
   setup() {},
   data() {
-    const simpleSchema = yup.object({
-      firstName: yup.string().required().min(2),
-      email: yup.string().required().email(),
+    const simpleSchema = yup.object().shape({
+      firstName: yup.string().required("Это обязательное поле").min(2, "Минимум 2 буквы"),
+      email: yup.string().required("Это обязательное поле").email("Введите корректный адрес"),
     });
     return {
       simpleSchema,
@@ -72,7 +73,7 @@ export default {
       placeholder="Введите Ваше имя"
       class="input input-bordered input-secondary w-full max-w-xs"
     />
-    <p class="text-error text-xs py-2" x-cloak>
+    <p class="text-error" x-cloak>
       <ErrorMessage name="firstName" />
     </p>
     <label for="email"></label>
@@ -84,12 +85,11 @@ export default {
       class="input input-bordered input-secondary w-full max-w-xs"
       aria-label="Email"
     />
-    <p class="text-error text-xs py-2" x-cloak>
-      <ErrorMessage name="email" />
+    <p class="h-0 text-error" x-cloak>
+      <ErrorMessage name="email" class="tooltip tooltip-top tooltip-primary" data-tip="example@mail.com" />
     </p>
-    <button class="btn btn-primary">Отправить</button>
+    <button class="mt-4 btn btn-accent">Отправить</button>
     <!--Footer-->
-    <div class="flex justify-end pt-2">
-    </div>
+    <div class="flex justify-end pt-2"></div>
   </Form>
 </template>
