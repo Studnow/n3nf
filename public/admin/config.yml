@@ -9,7 +9,7 @@ locale: "ru"
 
 collections:
   - name: 'blog'
-    label: 'Blog'
+    label: 'Блог'
     folder: 'content/blog'
     format: 'frontmatter'
     create: true
@@ -29,33 +29,12 @@ collections:
         media_library:
           config:
             multiple: true
-  - name: 'some'
-    label: 'Some'
+  - name: 'news'
+    label: 'Новости'
     folder: 'content/some'
     format: 'frontmatter'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
-    editor:
-      preview: false
-    fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-      - label: "Featured Image"
-        name: "thumbnail"
-        widget: "image"
-        choose_url: true
-        default: "img/speed_icon.svg"
-        media_library:
-          config:
-            multiple: true
-  - name: 'root'
-    label: 'Root'
-    folder: 'content/blog/nested'
-    format: 'frontmatter'
-    create: true
-    slug: '{{minutes}}-{{seconds}}-{{slug}}'
     editor:
       preview: false
     fields:
