@@ -27,7 +27,7 @@ onMounted(() => {
       <h3 class="font-bold text-lg">Давайте начнём!</h3>
       <p class="py-4">Оставьте свои контактные данные и я предложу Вам варианты лендингов для Вашего бизнеса</p>
       <HeroForm @onsub="closeModal" />
-      <p class="py-4">Ваши данные обрабатываются согласно <a href="#">Политике конфиденциальности</a></p>
+      <p class="py-4">Ваши данные обрабатываются согласно <a href="#Privacy-policy" class="text-secondary hover:text-accent">Политике конфиденциальности</a></p>
     </label>
   </label>
 </template>

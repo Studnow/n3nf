@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto">
-    <h3 class="text-center text-2xl font-medium">Выполненные работы</h3>
-    <div class="carousel carousel-center mx-auto">
+  <div class="container mx-auto mt-20">
+    <h3 class="text-center text-2xl font-medium">Примеры работ</h3>
+    <div class="carousel carousel-center mx-auto mt-10">
       <div id="slide1" class="carousel-item relative w-full">
         <!-- <img src="/img/first-full/dbco-first.webp" class="w-full" /> -->
         <PortfolioFrames />

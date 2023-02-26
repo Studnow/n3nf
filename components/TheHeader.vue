@@ -31,7 +31,7 @@
             <li><a>Блог</a></li>
           </ul>
         </div>
-        <a class="btn btn-ghost normal-case text-xl" href="/">Разработочная</a>
+        <a class="btn btn-ghost normal-case text-xl" href="/">Разработочная tkeld.com</a>
       </div>
       <div class="navbar-center hidden lg:flex">
         <ul class="menu menu-horizontal px-1">

@@ -142,18 +142,20 @@ const checkInput = (evt) => {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
     );
-    // quiz.value[currentQuestion.value].answers.map((a) =>
-    //   a.selected ? (form.value[evt.target.name] = [...quiz.value[currentQuestion.value].useranswer].toString()) : ""
-    // );
   }
 };
+const radialProgress = computed(() => {
+  let result = (currentQuestion.value / quiz.value.length) * 100;
+  return "--value:" + result;
+});
 </script>
 
 <template>
   <main class="app max-w-screen-2xl mx-auto prose-lg" v-cloak>
-    <h1 class="text-center">Опрос</h1>
+    <progress class="progress" :value="currentQuestion" :max="quiz.length"></progress>
+    <h3 class="text-center">Опрос</h3>
     <Form
-      class="quiz flex flex-col items-center justify-evenly py-16"
+      class="quiz flex flex-col items-center justify-evenly"
       id="testForm"
       name="testForm"
       method="post"
@@ -166,31 +168,37 @@ const checkInput = (evt) => {
       <p class="hidden">
         <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
       </p>
+      <!-- <progress class="progress w-56" :value="currentQuestion" :max="quiz.length"></progress> -->
       <div class="quiz-info">
         <div class="quiz-questions">
-          <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span>
-          <span class="question">{{ getCurrentQuestion.question }}</span>
-          <span class="question">{{
-            getCurrentQuestion.type == "radio" ? "Выберите один из вариантов" : "Выберите несколько вариантов"
-          }}</span>
+          <div class="flex flex-col">
+            <span class="question">{{ getCurrentQuestion.question }}</span>
+          </div>
+          <div class="radial-progress" :style="radialProgress" :value="currentQuestion" :max="quiz.length">
+            {{ currentQuestion }} из {{ quiz.length }}
+          </div>
+          <!-- <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span> -->
         </div>
       </div>
+            <span class="question">{{
+              getCurrentQuestion.type == "radio" ? "Выберите один из вариантов" : "Выберите несколько вариантов"
+            }}</span>
       <div
-        class="answers w-full flex justify-evenly items-center"
-        :class="getCurrentQuestion.index == index ? 'py-12' : ''"
+        class="answers w-full flex flex-col gap-4 md:flex-row justify-evenly items-center"
+        :class="getCurrentQuestion.index == index ? 'py-4 md:py-12' : ''"
         v-for="(q, index) in quiz"
         :key="index"
       >
         <div
-          class="card min-w-[20%] max-w-[25%] shadow-xl"
+          class="card min-w-[60%] md:min-w-[20%] max-w-[35%] shadow-xl overflow-hidden"
           :class="an.selected ? 'border border-2 border-info' : ''"
           v-for="(an, idx) in q.answers"
           :key="idx"
           v-show="currentQuestion == index"
         >
           <label class="h-full" v-if="!Array.isArray(q.type)">
-            <div class="card-body">
-              <h2 class="card-title">{{ an.text }}</h2>
+            <div class="card-body p-4 md:p-8 items-center">
+              <span class="card-title">{{ an.text }}</span>
               <Field
                 :type="q.type"
                 :name="'a' + '-' + (index + 1)"
@@ -198,6 +206,7 @@ const checkInput = (evt) => {
                 :value="an.text"
                 @change="checkInput"
               />
+              <!-- <Field type="range" :name="'a' + '-' + (index + 1)" class="range" min="0" max="100" value="20" /> -->
             </div>
           </label>
           <div class="card-body gap-8" v-else>
@@ -215,7 +224,7 @@ const checkInput = (evt) => {
                   class="text-error tooltip tooltip-bottom tooltip-error max-w-xs"
                   :data-tip="f == 'email' ? 'Пример: example@mail.com' : '2 буквы или больше'"
                 />
-                  <!-- :class="f == 'email' ? 'tooltip tooltip-bottom tooltip-error' : ''" -->
+                <!-- :class="f == 'email' ? 'tooltip tooltip-bottom tooltip-error' : ''" -->
               </div>
             </label>
           </div>
