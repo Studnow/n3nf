@@ -3,7 +3,7 @@
     <!-- <Modal /> -->
     <!-- <PortfolioFrames /> -->
     <Hero />
-    <Pricing />
+    <!-- <Pricing /> -->
     <Quiz />
     <!-- <CleanQuiz /> -->
     <!-- <HeroWithImg /> -->
