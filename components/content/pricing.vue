@@ -1,5 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+
+const groups = 'ic:baseline-groups'
 </script>
 
 <template>
@@ -7,21 +9,21 @@ import { Icon } from "@iconify/vue";
     <h2 class="text-center">Какие задачи решает лендинг пейдж?</h2>
     <div class="reasons">
       <div class="reasons_icon-card">
-        <Icon data-icon="ic:baseline-groups" class="reasons_icon-card__icon" />
+        <Icon :icon="groups" class="reasons_icon-card__icon"></Icon>
         <div class="reasons_text">
           <h3>Привлекает посетителей</h3>
           <span>Рассказывает информацию о продукте или услуге.</span>
         </div>
       </div>
       <div class="reasons_icon-card">
-        <!-- <Icon icon="clarity:form-line" class="reasons_icon-card__icon"></Icon> -->
+        <Icon icon="clarity:form-line" class="reasons_icon-card__icon"></Icon>
         <div class="reasons_text">
           <h3>Принимает заявки</h3>
           <span>Заинтересованные посетители оставляют данные для обратной связи</span>
         </div>
       </div>
       <div class="reasons_icon-card">
-        <!-- <Icon icon="carbon:test-tool" class="reasons_icon-card__icon"></Icon> -->
+        <Icon icon="carbon:test-tool" class="reasons_icon-card__icon"></Icon>
         <div class="reasons_text">
           <h3 class="reasons_text__header">Тестирует идеи</h3>
           <span>Проверяет интересен ли продукт или услуга целевой аудитории</span>
@@ -31,7 +33,7 @@ import { Icon } from "@iconify/vue";
   </div>
 </template>
 
-<style>
+<style scoped>
 .reasons {
   @apply w-full p-4 flex flex-col md:flex-row gap-6 justify-center items-center container mx-auto;
 }
