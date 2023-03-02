@@ -1,7 +1,7 @@
 <script setup>
 const clickLabelHeader = () => {
-  const box = document.getElementById("my-modal-6");
-  box.click();
+  const label = document.getElementById("my-modal-6");
+  label.click();
 };
 </script>
 
