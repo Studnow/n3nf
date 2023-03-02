@@ -1,37 +1,71 @@
+<script setup>
+const clickLabel = () => {
+  const box = document.getElementById("my-modal-6");
+  box.click();
+};
+</script>
+
 <template>
   <div class="hero-bg">
     <div class="hero">
       <div class="hero_left-img">
         <div class="decor">
-          <div class="w-[16rem] h-[9rem] bg-secondary shadow"></div>
-          <div class="w-[9rem] h-[16rem] bg-secondary shadow"></div>
+          <div class="w-[16rem] h-[9rem] bg-secondary-content shadow"></div>
+          <div class="w-[9rem] h-[16rem] bg-secondary-content shadow"></div>
           <picture
             class="absolute w-[20rem] h-[10rem] top-8 -left-4 shadow hover:scale-150 hover:translate-x-5 hover:-translate-y-5 transition-transform"
           >
-            <source type="image/webp" srcset="/img/md-first-prev/funiro-firstmed.webp" alt="Пример сайта" />
-            <img src="/img/md-first-prev/funiro-firstmed.jpg" width="428" height="230" alt="Пример сайта" class="" />
+            <source type="image/webp" srcset="/img/md-first-prev/funiro-firstmed.webp" alt="Пример сайта мебели" />
+            <img
+              src="/img/md-first-prev/funiro-firstmed.jpg"
+              width="428"
+              height="230"
+              alt="Пример сайта мебели"
+              class=""
+            />
           </picture>
           <picture
             class="absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow hover:scale-150 hover:translate-x-5 transition-transform"
           >
-            <source type="image/webp" srcset="/img/md-first-prev/slik-first-md.webp" alt="Пример сайта" />
-            <img src="/img/md-first-prev/slik-first-md.jpg" width="428" height="230" alt="Пример сайта" class="" />
+            <source
+              type="image/webp"
+              srcset="/img/md-first-prev/slik-first-md.webp"
+              alt="Пример сайта магазина автомобильных шин и дисков"
+            />
+            <img
+              src="/img/md-first-prev/slik-first-md.jpg"
+              width="428"
+              height="230"
+              alt="Пример сайта магазина автомобильных шин и дисков"
+              class=""
+            />
           </picture>
         </div>
       </div>
       <div class="hero-content z-10">
-        <div class="hero_text">
-          <h1 class="text-5xl font-bold text-center text-secondary">Разработка лендинга для бизнеса</h1>
-          <p class="prose prose-base text-xl">Оформить опрос</p>
-          <!-- <ul class="list-disc prose prose-base font-bold text-xl flex">
-            <li>Развёртывание в один клик</li>
-            <li>Быстрое подключение аналитики</li>
-            <li>Простое управление содержанием</li>
-            <li>Настройка рекламы</li>
+        <div class="hero_text text-secondary-content">
+          <!-- <p class="prose prose-base text-xl">Разработочная tkeld.com</p> -->
+          <h1 class="text-5xl font-bold text-center">Разработаю лендинг под ключ</h1>
+          <p class="text-xl w-full sm:ml-20">Лендинг - это одностраничный сайт, на котором представлены конкретные предложения продукта или услуги с целью привлечения потенциальных клиентов и увеличения продаж.</p>
+          <!-- <p class="text-xl w-full sm:ml-20">Привлекайте посетителей, которые могут стать клиентами.</p> -->
+          <!--<p class="prose prose-base text-xl">
+            Побуждает посетителей купить продукт или подписаться на рассылку.
+          </p> -->
+          <!-- <ul class="list-disc prose prose-base text-xl marker:text-primary">
+            <li>Одностраничный, быстродействующий сайт - помогает продвигать продукт или услугу.</li>
+            <li>Побуждает посетителей купить продукт или подписаться на рассылку.</li>
+            <li>Увеличивает количество посетителей, которые могут стать потенциальными клиентами.</li>
           </ul> -->
           <!-- <p class="hero_text__description">
           </p> -->
-          <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Заказать</label>
+          <label
+            tabindex="0"
+            @keyup.enter="clickLabel"
+            @keyup.esc="clickLabel"
+            for="my-modal-6"
+            class="btn btn-accent modal-button w-32 self-center"
+            >Заказать</label
+          >
           <!-- <button class="btn btn-accent">Get Started</button> -->
         </div>
       </div>

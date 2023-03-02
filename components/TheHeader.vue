@@ -1,6 +1,13 @@
+<script setup>
+const clickLabel = () => {
+  const box = document.getElementById("my-modal-6");
+  box.click();
+};
+</script>
+
 <template>
-  <header class="h-24 w-full sticky top-0 z-20 bg-base-200">
-    <div class="navbar py-6 max-w-screen-xl mx-auto">
+  <header class="header">
+    <div class="navbar navbar_custom">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost lg:hidden">
@@ -31,30 +38,35 @@
             <li><a>Блог</a></li>
           </ul>
         </div>
-        <a class="btn btn-ghost normal-case text-xl" href="/">Разработочная tkeld.com</a>
+        <a class="btn btn-ghost normal-case text-xl" href="/">tkeld.com</a>
       </div>
-      <div class="navbar-center hidden lg:flex">
+      <div class="navbar-center hidden lg:flex font-medium text-lg">
         <ul class="menu menu-horizontal px-1">
-          <li><a>Верх</a></li>
-          <li tabindex="0">
-            <a>
-              Выбрать
-              <svg class="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" />
-              </svg>
-            </a>
-            <ul class="p-2">
-              <li><a>Опрос</a></li>
-              <li><a>Портфолио 2</a></li>
-            </ul>
+          <li><a href="#r">Верх</a></li>
+          <li>
+            <a href="#r">Портфолио</a>
           </li>
-          <li><a>Блог</a></li>
+          <li><a href="#r">Блог</a></li>
         </ul>
       </div>
       <div class="navbar-end">
-        <!-- <a class="btn btn-accent">Get started</a> -->
-        <label for="my-modal-6" class="btn btn-accent modal-button w-32 self-center">Заказать</label>
+        <label
+          tabindex="0"
+          for="my-modal-6"
+          class="btn btn-accent modal-button w-32 self-center"
+          @keyup.enter="clickLabel"
+          >Заказать</label
+        >
       </div>
     </div>
   </header>
 </template>
+
+<style>
+.header {
+  @apply h-24 w-full sticky top-0 z-20 bg-base-100 text-base-content;
+}
+.navbar_custom {
+  @apply py-6 max-w-screen-xl mx-auto;
+}
+</style>

@@ -9,7 +9,6 @@ export default {
     Field,
     ErrorMessage,
   },
-  // props: ["onsub"],
   setup() {},
   data() {
     const simpleSchema = yup.object().shape({
@@ -37,7 +36,6 @@ export default {
           ...value,
         }),
       })
-        .then(() => this.$emit("onsub"))
         .then(() => navigateTo("/thank/"))
         .catch((error) => alert(error));
 
@@ -66,6 +64,7 @@ export default {
     </p>
     <label for="firstName"></label>
     <Field
+      tabindex="1"
       type="text"
       name="firstName"
       id="name"
@@ -77,6 +76,7 @@ export default {
     </p>
     <label for="email"></label>
     <Field
+      tabindex="1"
       type="email"
       name="email"
       id="mail"
@@ -87,7 +87,7 @@ export default {
     <p class="h-0 text-error" x-cloak>
       <ErrorMessage name="email" class="tooltip tooltip-top tooltip-primary" data-tip="example@mail.com" />
     </p>
-    <button class="mt-4 btn btn-accent">Отправить</button>
+    <button tabindex="1" class="mt-4 btn btn-accent">Отправить</button>
     <!--Footer-->
     <div class="flex justify-end pt-2"></div>
   </Form>

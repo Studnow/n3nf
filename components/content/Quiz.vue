@@ -122,7 +122,7 @@ const onSubmit = (value) => {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: encode({
-      "form-name": "testForm",
+      "form-name": "quizForm",
       ...value,
     }),
   })
@@ -151,20 +151,20 @@ const radialProgress = computed(() => {
 </script>
 
 <template>
-  <main class="app max-w-screen-2xl mx-auto prose-lg" v-cloak>
-    <progress class="progress" :value="currentQuestion" :max="quiz.length"></progress>
-    <h3 class="text-center">Опрос</h3>
+  <main class="app max-w-screen-2xl mx-auto mt-10" v-cloak>
+    <!-- <progress class="progress" :value="currentQuestion" :max="quiz.length"></progress> -->
+    <h2 class="text-center">Опрос</h2>
     <Form
       class="quiz flex flex-col items-center justify-evenly"
-      id="testForm"
-      name="testForm"
+      id="quizForm"
+      name="quizForm"
       method="post"
       netlify
       netlify-honeypot="bot-field"
       @submit="onSubmit"
       v-if="!quizCompleted"
     >
-      <input type="hidden" name="form-name" value="testForm" />
+      <input type="hidden" name="form-name" value="quizForm" />
       <p class="hidden">
         <label> Don’t fill this out if you’re human: <input name="bot-field" /> </label>
       </p>

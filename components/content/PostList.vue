@@ -1,5 +1,5 @@
 <script setup>
-const props = defineProps(["list"]);
+const props = defineProps(["contentList"]);
 </script>
 
 <template>
@@ -7,8 +7,14 @@ const props = defineProps(["list"]);
     <div class="divider"></div>
     <h2 class="text-center text-2xl">Выполненные работы</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
-      <div class="card w-64 md:w-80 lg:w-96 bg-base-100 shadow-md hover:shadow-sm" v-for="post in list" :key="post.title">
-        <figure><img :src="post.thumbnail" :alt="post.title" /></figure>
+      <div
+        class="card w-64 md:w-80 lg:w-96 bg-base-100 shadow-md hover:shadow-2xl transition"
+        v-for="post in contentList"
+        :key="post.title"
+      >
+        <NuxtLink :href="post._path">
+          <figure><img :src="post.thumbnail" :alt="post.title" /></figure>
+        </NuxtLink>
         <div class="card-body">
           <h2 class="card-title">
             <NuxtLink :href="post._path">{{ post.title }}</NuxtLink>

@@ -1,3 +1,6 @@
+<script setup>
+</script>
+
 <template>
   <div
     data-theme="fantasy"
