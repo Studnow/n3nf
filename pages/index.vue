@@ -1,6 +1,6 @@
 <template>
   <div class="w-full">
-    <Modal />
+    <!-- <Modal /> -->
     <!-- <PortfolioFrames /> -->
     <Hero />
     <Pricing />

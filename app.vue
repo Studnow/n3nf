@@ -26,6 +26,7 @@ useHead({
     <Title>Разработка одностраничного сайта для бизнеса</Title>
   </Head>
   <NuxtLayout>
+    <Modal />
     <NuxtPage />
   </NuxtLayout>
 </template>

@@ -7,7 +7,7 @@ export default defineNuxtConfig({
       compressPublicAssets: true,
     },
   },
-  target: "static",
+  // target: "static",
   meta: {
     title: "Разработка web сайтов",
   },
