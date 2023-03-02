@@ -1,5 +1,5 @@
 <script setup>
-const clickLabel = () => {
+const clickLabelHeader = () => {
   const box = document.getElementById("my-modal-6");
   box.click();
 };
@@ -54,7 +54,8 @@ const clickLabel = () => {
           tabindex="0"
           for="my-modal-6"
           class="btn btn-accent modal-button w-32 self-center"
-          @keyup.enter="clickLabel"
+          @keyup.enter="clickLabelHeader"
+          @keyup.esc="clickLabelHeader"
           >Заказать</label
         >
       </div>

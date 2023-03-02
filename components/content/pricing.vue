@@ -1,5 +1,5 @@
 <script setup>
-// import { Icon } from "@iconify/vue";
+import { Icon } from "@iconify/vue";
 </script>
 
 <template>
@@ -7,7 +7,7 @@
     <h2 class="text-center">Какие задачи решает лендинг пейдж?</h2>
     <div class="reasons">
       <div class="reasons_icon-card">
-        <!-- <Icon icon="ic:baseline-groups" class="reasons_icon-card__icon"></Icon> -->
+        <Icon data-icon="ic:baseline-groups" class="reasons_icon-card__icon" />
         <div class="reasons_text">
           <h3>Привлекает посетителей</h3>
           <span>Рассказывает информацию о продукте или услуге.</span>
