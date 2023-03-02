@@ -4,7 +4,7 @@
     <!-- <PortfolioFrames /> -->
     <Hero />
     <!-- <Pricing /> -->
-    <Quiz />
+    <!-- <Quiz /> -->
     <!-- <CleanQuiz /> -->
     <!-- <HeroWithImg /> -->
     <Carousel />
