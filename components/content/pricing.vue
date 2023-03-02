@@ -31,7 +31,7 @@
   </div>
 </template>
 
-<style scoped>
+<style>
 .reasons {
   @apply w-full p-4 flex flex-col md:flex-row gap-6 justify-center items-center container mx-auto;
 }
