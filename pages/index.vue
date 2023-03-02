@@ -3,8 +3,8 @@
     <!-- <Modal /> -->
     <!-- <PortfolioFrames /> -->
     <Hero />
-    <!-- <Pricing /> -->
-    <!-- <Quiz /> -->
+    <Pricing />
+    <Quiz />
     <!-- <CleanQuiz /> -->
     <!-- <HeroWithImg /> -->
     <Carousel />

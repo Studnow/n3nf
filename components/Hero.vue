@@ -1,8 +1,8 @@
 <script setup>
-// const clickLabelHero = () => {
-//   const box = document.getElementById("my-modal-6");
-//   box.click();
-// };
+const clickLabelHero = () => {
+  const box = document.getElementById("my-modal-6");
+  box.click();
+};
 </script>
 
 <template>
