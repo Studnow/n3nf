@@ -1,7 +1,5 @@
 <script setup>
 import { Icon } from "@iconify/vue";
-
-const groups = "ic:baseline-groups";
 </script>
 
 <template>
@@ -9,7 +7,7 @@ const groups = "ic:baseline-groups";
     <h2 class="text-center">Какие задачи решает лендинг пейдж?</h2>
     <div class="reasons">
       <div class="reasons_icon-card">
-        <iconify-icon icon="ic:baseline-groups" class="reasons_icon-card__icon"></iconify-icon>
+        <Icon icon="ic:baseline-groups" class="reasons_icon-card__icon"></Icon>
         <div class="reasons_text">
           <h3>Привлекает посетителей</h3>
           <span>Рассказывает информацию о продукте или услуге.</span>

@@ -23,7 +23,6 @@ useHead({
 <template>
   <Head>
     <Link rel="icon" type="image/png" href="/favicon.png"></Link>
-    <Script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></Script>
     <Title>Разработка одностраничного сайта для бизнеса</Title>
   </Head>
   <NuxtLayout>
