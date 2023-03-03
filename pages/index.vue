@@ -1,12 +1,8 @@
 <template>
   <div class="w-full">
-    <!-- <Modal /> -->
-    <!-- <PortfolioFrames /> -->
     <Hero />
     <Pricing />
     <Quiz />
-    <!-- <CleanQuiz /> -->
-    <!-- <HeroWithImg /> -->
     <Carousel />
     <ContentList>
       <template v-slot="{ list }">

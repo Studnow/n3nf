@@ -1,38 +1,91 @@
 <script setup>
-import { Form, Field, ErrorMessage, useField } from "vee-validate";
+import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 import { ref, computed } from "vue";
+import { Icon } from "@iconify/vue";
 
 const quiz = ref([
   {
-    question: "Какой тип сайта Вам нужен?",
-    type: "radio",
+    question: "Какой продукт или услугу Вы хотели бы продвигать с помощью лендинга?",
+    type: ["text"],
+    validateName: yup.string().required("Введите ответ").min(3, "Минимум 3 буквы"),
     answers: [
       {
-        text: "Одностраничный",
-        selected: false,
-      },
-      {
-        text: "Многостраничный",
+        atype: "text",
+        text: "",
         selected: false,
       },
     ],
     useranswer: [],
   },
   {
-    question: "Какая тематика сайта?",
+    question: "Какой цели хотите достичь?",
+    type: "checkbox",
+    answers: [
+      {
+        text: "Привлечь внимание к продукту",
+        selected: false,
+      },
+      {
+        text: "Получить заказы",
+        selected: false,
+      },
+      {
+        text: "Проанализировать целевую аудиторию",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Какую функциональность Вы хотите использовать?",
+    type: "checkbox",
+    answers: [
+      {
+        text: "Интеграция социальных сетей",
+        selected: false,
+      },
+      {
+        text: "Возможность оплаты",
+        selected: false,
+      },
+      {
+        text: "Подписка на рассылку",
+        selected: false,
+      },
+      {
+        text: "Обратный звонок",
+        selected: false,
+      },
+      {
+        text: "Получение контактов",
+        selected: false,
+      },
+    ],
+    useranswer: [],
+  },
+  {
+    question: "Есть ли у Вас готовый контент для лендинга?",
     type: "radio",
     answers: [
       {
-        text: "Продажа товаров",
+        text: "Есть текст",
         selected: false,
       },
       {
-        text: "Услуги",
+        text: "Есть изображения",
         selected: false,
       },
       {
-        text: "Другое",
+        text: "Есть видео",
+        selected: false,
+      },
+      {
+        text: "Есть готовый дизайн с необходимым контентом",
+        selected: false,
+      },
+      {
+        text: "Ничего нет",
         selected: false,
       },
     ],
@@ -62,23 +115,27 @@ const quiz = ref([
     useranswer: [],
   },
   {
-    question: "Какой цели хотите достичь?",
-    type: "checkbox",
+    question: "Сколько времени планируете на создание лендинга?",
+    type: "radio",
     answers: [
       {
-        text: "Привлечь внимание к продукту",
+        text: "На вчера",
         selected: false,
       },
       {
-        text: "Получить заказы",
+        text: "Не больше недели",
         selected: false,
       },
       {
-        text: "Протестировать нишу",
+        text: "Неделя-две",
         selected: false,
       },
       {
-        text: "Проанализировать потенциальных клиентов",
+        text: "Две три недели",
+        selected: false,
+      },
+      {
+        text: "Месяц или больше",
         selected: false,
       },
     ],
@@ -89,14 +146,26 @@ const quiz = ref([
     type: ["text", "email"],
     validateName: yup.string().required("Введите имя").min(2, "Минимум 2 буквы"),
     validateEmail: yup.string().required("Введите адрес").email("Введите корректный адрес"),
-    answers: [{}],
+    answers: [
+      {
+        atype: "text",
+        text: "Имя",
+      },
+      {
+        atype: "email",
+        text: "Email",
+      },
+      {
+        atype: "file",
+        text: "Загрузите файл с техническим заданием или готовым дизайном",
+      },
+    ],
     useranswer: [],
   },
 ]);
 
 const quizCompleted = ref(false);
 const currentQuestion = ref(0);
-// const result = ref({});
 
 const getCurrentQuestion = computed(() => {
   let question = quiz.value[currentQuestion.value];
@@ -106,6 +175,12 @@ const getCurrentQuestion = computed(() => {
 const NextQuestion = () => {
   if (currentQuestion.value < quiz.value.length - 1) {
     currentQuestion.value++;
+    return;
+  }
+};
+const PrevQuestion = () => {
+  if (currentQuestion.value > 0) {
+    currentQuestion.value--;
     return;
   }
 };
@@ -142,6 +217,11 @@ const checkInput = (evt) => {
     quiz.value[currentQuestion.value].answers.map((s) =>
       s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
     );
+  } else {
+    console.log(evt);
+    quiz.value[currentQuestion.value].answers.map((s) =>
+      evt.target.value.length >= 3 ? (s.selected = true) : (s.selected = false)
+    );
   }
 };
 const radialProgress = computed(() => {
@@ -153,9 +233,19 @@ const radialProgress = computed(() => {
 <template>
   <main class="app max-w-screen-2xl mx-auto mt-10" v-cloak>
     <!-- <progress class="progress" :value="currentQuestion" :max="quiz.length"></progress> -->
-    <h2 class="text-center">Опрос</h2>
+    <div class="quiz-heading relative">
+      <h2 class="text-center text-secondary">Опрос</h2>
+      <div
+        class="radial-progress absolute right-6 top-6 sm:top-0 sm:right-20"
+        :style="radialProgress"
+        :value="currentQuestion"
+        :max="quiz.length"
+      >
+        {{ currentQuestion }} из {{ quiz.length }}
+      </div>
+    </div>
     <Form
-      class="quiz flex flex-col items-center justify-evenly"
+      class="quiz flex flex-col items-center justify-center"
       id="quizForm"
       name="quizForm"
       method="post"
@@ -174,18 +264,20 @@ const radialProgress = computed(() => {
           <div class="flex flex-col">
             <span class="question">{{ getCurrentQuestion.question }}</span>
           </div>
-          <div class="radial-progress" :style="radialProgress" :value="currentQuestion" :max="quiz.length">
-            {{ currentQuestion }} из {{ quiz.length }}
-          </div>
           <!-- <span class="score">Вопрос {{ currentQuestion }} из {{ quiz.length }}</span> -->
         </div>
       </div>
-            <span class="question">{{
-              getCurrentQuestion.type == "radio" ? "Выберите один из вариантов" : "Выберите несколько вариантов"
-            }}</span>
+
+      <span class="answer-helper">{{
+        getCurrentQuestion.type == "radio"
+          ? "Выберите один из вариантов"
+          : getCurrentQuestion.type == "checkbox"
+          ? "Выберите один или несколько вариантов"
+          : "Введите ответ"
+      }}</span>
       <div
         class="answers w-full flex flex-col gap-4 md:flex-row justify-evenly items-center"
-        :class="getCurrentQuestion.index == index ? 'py-4 md:py-12' : ''"
+        :class="getCurrentQuestion.index == index ? 'pb-4 md:py-12' : ''"
         v-for="(q, index) in quiz"
         :key="index"
       >
@@ -210,45 +302,51 @@ const radialProgress = computed(() => {
             </div>
           </label>
           <div class="card-body gap-8" v-else>
-            <label class="h-full flex flex-col" v-for="(f, i) in q.type" :key="i">
+            <label class="h-full flex flex-col">
               <div class="msg">
-                <span class="card-title">{{ f == "text" ? "Имя" : "Email" }}</span>
+                <span class="card-title">{{ an.text }}</span>
                 <Field
-                  :type="f"
-                  :name="'user-' + f"
-                  class="input input-bordered input-secondary w-full max-w-xs"
-                  :rules="f == 'text' ? q.validateName : q.validateEmail"
+                  :type="an.atype"
+                  :name="'user-' + an.atype + '-' + index"
+                  class=""
+                  :class="
+                    an.atype == 'file' ? 'file-input file-input-bordered file-input-secondary w-full max-w-xs' : 'input input-bordered input-secondary w-full max-w-xs'
+                  "
+                  :rules="an.atype == 'text' ? q.validateName : an.atype == 'email' ? q.validateEmail : ''"
+                  @input="checkInput"
                 />
                 <ErrorMessage
-                  :name="'user-' + f"
+                  :name="'user-' + an.atype + '-' + index"
                   class="text-error tooltip tooltip-bottom tooltip-error max-w-xs"
-                  :data-tip="f == 'email' ? 'Пример: example@mail.com' : '2 буквы или больше'"
+                  :data-tip="an.atype == 'email' ? 'Пример: example@mail.com' : '2 буквы или больше'"
                 />
-                <!-- :class="f == 'email' ? 'tooltip tooltip-bottom tooltip-error' : ''" -->
               </div>
             </label>
           </div>
         </div>
       </div>
-      <button
-        class="btn btn-accent btn-wide self-center"
-        @click.prevent="NextQuestion"
-        v-if="getCurrentQuestion.index != quiz.length - 1 && getCurrentQuestion.type == 'radio'"
-        :disabled="getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? false : true"
-      >
-        {{ getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? "Дальше" : "Выбрать один" }}
-      </button>
-      <button
-        class="btn btn-accent btn-wide self-center"
-        @click.prevent="NextQuestion"
-        v-else-if="getCurrentQuestion.index != quiz.length - 1 && getCurrentQuestion.type == 'checkbox'"
-        :disabled="getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? false : true"
-      >
-        {{ getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? "Дальше" : "Выбрать несколько" }}
-      </button>
-      <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
-        {{ "Отправить" }}
-      </button>
+      <div class="quiz-actions">
+        <button
+          class="btn btn-accent btn-wide self-center justify-evenly"
+          @click.prevent="PrevQuestion"
+          v-if="getCurrentQuestion.index > 0"
+        >
+          <Icon icon="material-symbols:arrow-circle-left-outline" class="text-4xl" />
+          Предыдущий
+        </button>
+        <button
+          class="btn btn-accent btn-wide self-center justify-evenly"
+          @click.prevent="NextQuestion"
+          v-if="getCurrentQuestion.index != quiz.length - 1"
+          :disabled="getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? false : true"
+        >
+          Дальше
+          <Icon icon="material-symbols:arrow-circle-right-outline" class="text-4xl" />
+        </button>
+        <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
+          {{ "Отправить" }}
+        </button>
+      </div>
     </Form>
     <section class="quiz flex flex-col justify-center py-16" v-else>
       <h2>Вы прошли опрос!</h2>
@@ -256,3 +354,15 @@ const radialProgress = computed(() => {
     </section>
   </main>
 </template>
+
+<style scoped>
+.question {
+  @apply font-semibold text-xl mt-10;
+}
+.answer-helper {
+  @apply text-xl mt-20;
+}
+.quiz-actions {
+  @apply w-full flex justify-evenly;
+}
+</style>

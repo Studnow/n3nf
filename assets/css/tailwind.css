@@ -37,7 +37,7 @@ h3 {
   @apply hidden lg:block relative;
 }
 .quiz-questions {
-  @apply flex justify-between items-center;
+  @apply text-center;
 }
 .quiz-info {
   @apply w-2/3;
