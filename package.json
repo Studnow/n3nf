@@ -17,6 +17,7 @@
     "nuxt": "3.0.0-rc.6"
   },
   "dependencies": {
+    "@gtm-support/vue-gtm": "^2.0.0",
     "i": "^0.3.7",
     "npm": "^9.3.0",
     "vee-validate": "^4.6.5",
