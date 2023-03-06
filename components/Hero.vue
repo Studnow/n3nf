@@ -46,7 +46,10 @@ const clickLabelHero = () => {
         <div class="hero_text text-secondary-content">
           <!-- <p class="prose prose-base text-xl">Разработочная tkeld.com</p> -->
           <h1 class="text-5xl font-bold text-center">Разработаю лендинг под ключ</h1>
-          <p class="text-xl w-full sm:ml-20">Лендинг - это одностраничный сайт, на котором представлены конкретные предложения продукта или услуги с целью привлечения потенциальных клиентов и увеличения продаж.</p>
+          <p class="text-xl w-full sm:ml-20">
+            Лендинг - это одностраничный сайт, на котором представлены конкретные предложения продукта или услуги с
+            целью привлечения потенциальных клиентов и увеличения продаж.
+          </p>
           <!-- <p class="text-xl w-full sm:ml-20">Привлекайте посетителей, которые могут стать клиентами.</p> -->
           <!--<p class="prose prose-base text-xl">
             Побуждает посетителей купить продукт или подписаться на рассылку.
@@ -88,3 +91,25 @@ const clickLabelHero = () => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.hero {
+  @apply flex justify-evenly items-center h-[70vh] md:px-4 w-full bg-secondary;
+}
+.hero-bg {
+  @apply bg-base-100;
+}
+.hero_text {
+  font-family: Inter, sans-serif;
+  @apply flex flex-col gap-16 md:gap-10 items-center max-w-xl;
+}
+.hero_text__description {
+  @apply font-normal text-xl md:max-w-[2/3];
+}
+.hero_left-img .hero_right-img {
+  @apply w-1/3 h-screen;
+}
+.decor {
+  @apply hidden lg:block relative;
+}
+</style>

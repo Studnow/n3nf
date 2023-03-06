@@ -21,6 +21,10 @@ export default {
     };
   },
   methods: {
+    closeModal() {
+      const label = document.getElementById("my-modal-6");
+      label.click();
+    },
     encode(data) {
       return Object.keys(data)
         .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
@@ -36,6 +40,7 @@ export default {
           ...value,
         }),
       })
+        .then(() => this.closeModal())
         .then(() => navigateTo("/thank/"))
         .catch((error) => alert(error));
 
