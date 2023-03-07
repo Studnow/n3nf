@@ -1,57 +1,91 @@
+<script setup>
+import { Icon } from "@iconify/vue";
+
+const pricingCards = ref([
+  {
+    title: "Старт",
+    list: [
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+    ],
+  },
+  {
+    title: "Старт",
+    list: [
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+    ],
+  },
+  {
+    title: "Старт",
+    list: [
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+      {
+        name: "Верстка",
+      },
+    ],
+  },
+]);
+</script>
+
 <template>
   <div class="pricing">
-    <h3 class="pricing_header">Сколько стоит разработка и настройка лендинга</h3>
+    <h2 class="pricing_header">Сколько стоит разработка лендинга</h2>
     <div class="pricing__cards">
-      <div class="card pricing__cards__card">
+      <div class="card pricing__cards__card" v-for="card in pricingCards">
         <div class="card-body">
-          <h2 class="card-title">Простой шаблон</h2>
-          <ul>
-            <li>Шаблон из 4 блоков</li>
-            <li>Установка на хостинг</li>
-            <li>Помощь с покупкой домена</li>
-            <li>Регистрация аккаунтов*</li>
-            <li>Подбор изображений/видео материалов</li>
-            <li>Текстовое наполнение</li>
+          <h2 class="card-title">{{ card.title }}</h2>
+          <ul class="card-list">
+            <li class="card-list__item" v-for="item in card.list">
+              <Icon class="icon" icon="basil:checked-box-outline" />{{ item.name }}
+            </li>
           </ul>
           <div class="card-actions justify-center">
-            <button class="btn btn-accent">Посмотреть пример</button>
-          </div>
-        </div>
-      </div>
-      <div class="card pricing__cards__card">
-        <div class="card-body">
-          <h2 class="card-title">Шаблон с формой</h2>
-          <ul>
-            <li>Простой шаблон +</li>
-            <li>Форма обратной связи</li>
-            <li>Простая анимация</li>
-            <li>четыре</li>
-            <li>пять</li>
-            <li>шесть</li>
-          </ul>
-          <div class="card-actions justify-center">
-            <button class="btn btn-accent">Посмотреть пример</button>
-          </div>
-        </div>
-      </div>
-      <div class="card pricing__cards__card">
-        <div class="card-body">
-          <h2 class="card-title">Расширенный шаблон</h2>
-          <ul>
-            <li>Шаблон с формой +</li>
-            <li>Вёрстка по Вашему макету</li>
-            <li>настройка рекламы</li>
-            <li></li>
-            <li>пять</li>
-            <li>шесть</li>
-          </ul>
-          <div class="card-actions justify-center">
-            <button class="btn btn-accent">Посмотреть пример</button>
+            <button class="btn btn-accent mt-8">Посмотреть пример</button>
           </div>
         </div>
       </div>
     </div>
-    <span class="ml-16">*Регистрация аккаунтов для разработки, размещения на хостинге, аккаунт Google для подключения аналитики и рекламы.</span>
+    <p class="ml-16"
+      >*Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Рекламных великий все предложения текстами, ipsum страну своего взгляд всеми повстречался вершину дорогу курсивных текст грустный, злых встретил буквенных моей!</p
+    >
   </div>
 </template>
 
@@ -70,5 +104,11 @@
 }
 .card-body:hover button {
   @apply animate-pulse;
+}
+.card-list__item {
+  @apply flex justify-start text-lg;
+}
+.icon {
+  @apply w-6 h-6 text-success mr-2;
 }
 </style>

@@ -1,12 +1,13 @@
 <template>
   <div class="w-full">
-    <Pricing />
     <div class="top">
       <Hero />
       <Reasons />
     </div>
     <Quiz />
-    <Carousel />
+    <!-- <div class="divider"></div>
+    <Carousel /> -->
+    <div class="divider"></div>
     <ContentList>
       <template v-slot="{ list }">
         <PostList :contentList="list" />
@@ -15,6 +16,8 @@
         <p>No articles found.</p>
       </template>
     </ContentList>
+    <div class="divider"></div>
+    <Pricing />
   </div>
 </template>
 

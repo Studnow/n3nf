@@ -4,7 +4,6 @@ const props = defineProps(["contentList"]);
 
 <template>
   <section class="mx-auto max-w-screen-xl prose prose-base">
-    <div class="divider"></div>
     <h2 class="text-center text-2xl">Выполненные работы</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 justify-items-center">
       <div
@@ -26,6 +25,5 @@ const props = defineProps(["contentList"]);
         </div>
       </div>
     </div>
-    <div class="divider"></div>
   </section>
 </template>

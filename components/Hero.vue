@@ -13,7 +13,7 @@ const clickLabelHero = () => {
         <div class="w-[9rem] h-[16rem] bg-accent shadow"></div>
         <picture
           class="decor__top-pic absolute w-[20rem] h-[10rem] top-8 -left-4 shadow hover:scale-150 hover:translate-x-5 hover:-translate-y-5 transition-transform ease-out duration-500"
-        data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
+        >
           <source type="image/webp" srcset="/img/md-first-prev/funiro-firstmed.webp" alt="Пример сайта мебели" />
           <img
             src="/img/md-first-prev/funiro-firstmed.jpg"
@@ -25,7 +25,7 @@ const clickLabelHero = () => {
         </picture>
         <picture
           class="decor__bot-pic absolute w-[18rem] h-[8rem] bottom-8 left-4 shadow hover:scale-150 hover:translate-x-5 transition-transform ease-out duration-500"
-        data-aos="fade-right" data-aos-delay="100" data-aos-duration="1000">
+        >
           <source
             type="image/webp"
             srcset="/img/md-first-prev/slik-first-md.webp"
@@ -107,7 +107,7 @@ const clickLabelHero = () => {
 .decor {
   @apply hidden lg:block relative;
 }
-/* .decor__top-pic {
+.decor__top-pic {
   animation: to-r 1.2s ease-out;
 }
 .decor__bot-pic {
@@ -122,5 +122,5 @@ const clickLabelHero = () => {
     transform: translateX(0);
     opacity: 1;
   }
-} */
+}
 </style>
