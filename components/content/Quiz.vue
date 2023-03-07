@@ -173,7 +173,7 @@ const getCurrentQuestion = computed(() => {
   return question;
 });
 const NextQuestion = () => {
-  if (currentQuestion.value < quiz.value.length - 1) {
+  if (currentQuestion.value < quiz.value.length) {
     currentQuestion.value++;
     return;
   }
@@ -186,13 +186,11 @@ const PrevQuestion = () => {
 };
 
 const encode = (data) => {
-  console.log(data);
   return Object.keys(data)
     .map((key) => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
     .join("&");
 };
 const onSubmit = (value) => {
-  console.log(value);
   fetch("/", {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -218,7 +216,6 @@ const checkInput = (evt) => {
       s.text == evt.target.value && s.selected == !evt.target.checked ? (s.selected = evt.target.checked) : s.selected
     );
   } else {
-    console.log(evt);
     quiz.value[currentQuestion.value].answers.map((s) =>
       evt.target.value.length >= 3 ? (s.selected = true) : (s.selected = false)
     );
@@ -276,25 +273,25 @@ const radialProgress = computed(() => {
           : "Введите ответ"
       }}</span>
       <div
-        class="answers w-full flex flex-col gap-4 md:flex-row justify-evenly items-center"
+        class="answers"
         :class="getCurrentQuestion.index == index ? 'pb-4 md:py-12' : ''"
         v-for="(q, index) in quiz"
         :key="index"
       >
         <div
-          class="card min-w-[60%] md:min-w-[20%] max-w-[35%] shadow-xl overflow-hidden"
-          :class="an.selected ? 'border border-2 border-info' : ''"
+          class="card answers__card"
+          :class="an.selected ? 'answers__card--checked' : ''"
           v-for="(an, idx) in q.answers"
           :key="idx"
           v-show="currentQuestion == index"
         >
           <label class="h-full" v-if="!Array.isArray(q.type)">
-            <div class="card-body p-4 md:p-8 items-center">
+            <div class="card-body answers__card-body">
               <span class="card-title">{{ an.text }}</span>
               <Field
+                class="hidden"
                 :type="q.type"
                 :name="'a' + '-' + (index + 1)"
-                class="hidden"
                 :value="an.text"
                 @change="checkInput"
               />
@@ -306,18 +303,20 @@ const radialProgress = computed(() => {
               <div class="msg">
                 <span class="card-title">{{ an.text }}</span>
                 <Field
+                  class=""
                   :type="an.atype"
                   :name="'user-' + an.atype + '-' + index"
-                  class=""
                   :class="
-                    an.atype == 'file' ? 'file-input file-input-bordered file-input-secondary w-full max-w-xs' : 'input input-bordered input-secondary w-full max-w-xs'
+                    an.atype == 'file'
+                      ? 'file-input file-input-bordered file-input-secondary w-full max-w-xs'
+                      : 'input input-bordered input-secondary w-full max-w-xs'
                   "
                   :rules="an.atype == 'text' ? q.validateName : an.atype == 'email' ? q.validateEmail : ''"
                   @input="checkInput"
                 />
                 <ErrorMessage
+                  class="answers__card-body--error"
                   :name="'user-' + an.atype + '-' + index"
-                  class="text-error tooltip tooltip-bottom tooltip-error max-w-xs"
                   :data-tip="an.atype == 'email' ? 'Пример: example@mail.com' : '2 буквы или больше'"
                 />
               </div>
@@ -327,7 +326,7 @@ const radialProgress = computed(() => {
       </div>
       <div class="quiz-actions">
         <button
-          class="btn btn-accent btn-wide self-center justify-evenly"
+          class="quiz-actions__btn justify-evenly"
           @click.prevent="PrevQuestion"
           v-if="getCurrentQuestion.index > 0"
         >
@@ -335,15 +334,15 @@ const radialProgress = computed(() => {
           Предыдущий
         </button>
         <button
-          class="btn btn-accent btn-wide self-center justify-evenly"
+          class="quiz-actions__btn justify-evenly"
           @click.prevent="NextQuestion"
           v-if="getCurrentQuestion.index != quiz.length - 1"
           :disabled="getCurrentQuestion.answers.map((s) => s.selected).includes(true) ? false : true"
         >
           Дальше
-          <Icon icon="material-symbols:arrow-circle-right-outline" class="text-4xl" />
+          <Icon class="text-4xl" icon="material-symbols:arrow-circle-right-outline" />
         </button>
-        <button class="btn btn-accent btn-wide self-center" @click="NextQuestion" v-else>
+        <button class="quiz-actions__btn" @click="NextQuestion" v-else>
           {{ "Отправить" }}
         </button>
       </div>
@@ -359,10 +358,28 @@ const radialProgress = computed(() => {
 .question {
   @apply font-semibold text-xl mt-10;
 }
+.answers {
+  @apply w-full flex flex-col gap-4 md:flex-row justify-evenly items-center;
+}
+.answers__card {
+  @apply min-w-[60%] md:min-w-[20%] max-w-[35%] shadow-xl overflow-hidden;
+}
+.answers__card--checked {
+  @apply border border-2 border-info;
+}
+.answers__card-body {
+  @apply p-4 md:p-8 items-center;
+}
+.answers__card-body--error {
+  @apply answers__card-body p-4 md:p-8 items-center;
+}
 .answer-helper {
   @apply text-xl mt-20;
 }
 .quiz-actions {
   @apply w-full flex justify-evenly;
+}
+.quiz-actions__btn {
+  @apply btn btn-accent btn-wide self-center;
 }
 </style>

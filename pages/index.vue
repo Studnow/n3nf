@@ -1,7 +1,10 @@
 <template>
   <div class="w-full">
-    <Hero />
     <Pricing />
+    <div class="top">
+      <Hero />
+      <Reasons />
+    </div>
     <Quiz />
     <Carousel />
     <ContentList>
@@ -14,3 +17,9 @@
     </ContentList>
   </div>
 </template>
+
+<style scoped>
+.top {
+  @apply bg-gradient-to-t from-secondary to-base-100 shadow-lg;
+}
+</style>

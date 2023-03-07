@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto mt-20">
+  <div class="container mx-auto mt-16">
     <h3 class="text-center text-2xl font-medium">Примеры работ</h3>
     <div class="carousel carousel-center mx-auto mt-10">
       <!-- <div id="slide1" class="carousel-item relative w-full">

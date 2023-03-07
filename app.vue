@@ -8,6 +8,13 @@ useHead({
       content: "Разрабатываю одностраничные сайты для привлечения аудитории к продукту/компании",
     },
   ],
+  link: [
+    {
+      rel: "icon",
+      type: "image/png",
+      href: "/favicon.png",
+    },
+  ],
   script: [
     {
       src: "https://identity.netlify.com/v1/netlify-identity-widget.js",
@@ -22,7 +29,7 @@ useHead({
 
 <template>
   <Head>
-    <Link rel="icon" type="image/png" href="/favicon.png"></Link>
+    <!-- <Link rel="icon" type="image/png" href="/favicon.png"></Link> -->
     <Title>Разработка одностраничного сайта для бизнеса</Title>
   </Head>
   <NuxtLayout>
