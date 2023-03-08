@@ -242,7 +242,7 @@ const radialProgress = computed(() => {
       </div>
     </div>
     <Form
-      class="quiz flex flex-col items-center justify-center"
+      class="quiz flex flex-col items-center justify-center mb-20"
       id="quizForm"
       name="quizForm"
       method="post"

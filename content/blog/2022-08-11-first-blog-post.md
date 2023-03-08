@@ -4,6 +4,7 @@ date: 2022-08-11T10:24:51.363Z
 description: Some text in blog post
 thumbnail: /img/5027824_coin_money_setting_icon.png
 ---
+
 ## Разработка сайтов дорого!
 
 ## HTML
@@ -18,10 +19,16 @@ thumbnail: /img/5027824_coin_money_setting_icon.png
 
 ::TheFooter
 
-Pew Pew
+# Pew Pew
+
+  :::Reasons
+
+  :::
 
 #text
-lol
+  :::Quiz
+
+  :::
 
 ::
 ::PortfolioFrames

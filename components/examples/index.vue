@@ -1,12 +1,10 @@
 <template>
   <div class="w-full">
-    <div class="top">
+    <!-- <div class="top">
       <Hero />
       <Reasons />
     </div>
-    <Quiz />
-    <!-- <div class="divider"></div>
-    <Carousel /> -->
+    <Carousel />
     <div class="divider"></div>
     <ContentList>
       <template v-slot="{ list }">
@@ -18,6 +16,8 @@
     </ContentList>
     <div class="divider"></div>
     <Pricing />
+    <div class="divider"></div>
+    <Quiz /> -->
   </div>
 </template>
 
