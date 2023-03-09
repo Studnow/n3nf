@@ -19,18 +19,15 @@ thumbnail: /img/5027824_coin_money_setting_icon.png
 
 ::TheFooter
 
-# Pew Pew
+# [Pew Pew](/)
 
-  :::Reasons
+:::Reasons
 
-  :::
+:::
 
 #text
-  :::Quiz
+::::Quiz
 
-  :::
-
-::
-::PortfolioFrames
+:::
 
 ::

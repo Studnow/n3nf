@@ -41,11 +41,11 @@ const clickLabelHero = () => {
         </picture>
       </div>
     </div>
-    <div class="hero-content z-10">
-      <div class="hero_text">
+    <div class="content z-10">
+      <!-- <div class="description"> -->
         <!-- <p class="prose prose-base text-xl">Разработочная tkeld.com</p> -->
-        <h1 class="text-5xl font-bold text-center">Разработаю лендинг под ключ</h1>
-        <p class="text-xl w-full sm:ml-20">
+        <h1 class="content__header">Разработаю лендинг под ключ</h1>
+        <p class="content__text">
           Лендинг - это одностраничный сайт, на котором представлены конкретные предложения продукта или услуги с целью
           привлечения потенциальных клиентов и увеличения продаж.
         </p>
@@ -69,7 +69,7 @@ const clickLabelHero = () => {
           >Заказать</label
         >
         <!-- <button class="btn btn-accent">Get Started</button> -->
-      </div>
+      <!-- </div> -->
     </div>
     <!-- <div class="hero_right-img">
         <div class="decor">
@@ -94,9 +94,15 @@ const clickLabelHero = () => {
 .hero {
   @apply flex justify-evenly items-center h-[70vh] mt-24 md:mt-0 md:px-4 w-full;
 }
-.hero_text {
+.content {
   font-family: Inter, sans-serif;
   @apply flex flex-col gap-16 md:gap-10 items-center max-w-xl;
+}
+.content__header {
+  @apply text-5xl font-bold text-center text-secondary;
+}
+.content__text {
+  @apply text-xl w-full px-4 md:px-0 md:ml-20;
 }
 .hero_text__description {
   @apply font-normal text-xl md:max-w-[2/3];

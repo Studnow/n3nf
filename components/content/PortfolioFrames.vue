@@ -1,10 +1,4 @@
-<script>
-export default {
-  setup() {
-    data: {
-    }
-  },
-};
+<script setup>
 </script>
 
 <template>

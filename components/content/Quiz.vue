@@ -204,7 +204,6 @@ const onSubmit = (value) => {
     .catch((error) => alert(error));
 };
 
-// const form = ref({});
 const checkInput = (evt) => {
   if (evt.target.type == "radio") {
     quiz.value[currentQuestion.value].answers.map((s) =>
@@ -375,6 +374,12 @@ const radialProgress = computed(() => {
 }
 .answer-helper {
   @apply text-xl mt-20;
+}
+.quiz-questions {
+  @apply text-center;
+}
+.quiz-info {
+  @apply w-2/3;
 }
 .quiz-actions {
   @apply w-full flex justify-evenly;

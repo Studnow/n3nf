@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 h2 a {
-  @apply !no-underline hover:!underline !text-secondary;
+  @apply !no-underline hover:!underline !text-secondary font-semibold;
 }
 
 a {
@@ -11,18 +11,12 @@ a {
 }
 
 h2 {
-  @apply text-3xl mt-2 mb-6 font-semibold;
+  @apply text-3xl mt-2 mb-6 font-semibold flex justify-center;
 }
 h3 {
   @apply text-xl mt-2 mb-4 font-semibold;
 }
 
-.quiz-questions {
-  @apply text-center;
-}
-.quiz-info {
-  @apply w-2/3;
-}
 .progress-enter-active,
 .progress-leave-active {
   transition: opacity 0.5s ease;
